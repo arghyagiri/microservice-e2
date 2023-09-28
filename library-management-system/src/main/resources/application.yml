@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: library-management
+  datasource:
+    url: jdbc:h2:file:./library-management-system/database/lmsdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: none
+    show-sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+  h2:
+    console:
+      enabled: true
+  jackson:
+    default-property-inclusion: non_empty
+server:
+  port: 8888
+  servlet:
+    context-path: /app
+
+springdoc:
+  packagesToScan: com.tcs.training.ms
+
+logging:
+  level:
+    .: INFO
+
+
+
