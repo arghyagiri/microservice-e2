@@ -65,6 +65,10 @@ mvn spring-boot:run
 * Retrieve books borrowed by a borrower: ```GET /api/books/borrower/{id}```
 
 
+## API Test Client
+
+![img.png](img.png)
+
 ## Copyright
 
 Released under the Apache License 2.0. See the [LICENSE](https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
