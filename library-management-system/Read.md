@@ -21,6 +21,14 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 mvn spring-boot:run
 ```
 
+## Local Application Urls
+### Base Url
+http://localhost:8888/app
+
+### Swagger UI
+http://localhost:8888/app/swagger-ui/index.html
+
+
 ## Application endpoints:
 
 ### Book Related Endpoints
