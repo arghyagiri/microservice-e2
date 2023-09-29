@@ -15,14 +15,6 @@ public class BookController {
 
 	private final BookRepository bookRepository;
 
-	private final AuthorRepository authorRepository;
-
-	private final BorrowerRepository borrowerRepository;
-
-	private final GenreRepository genreRepository;
-
-	private final LibraryBranchRepository libraryBranchRepository;
-
 	@GetMapping
 	public List<Book> getAll() {
 		return bookRepository.findAll();
