@@ -13,23 +13,20 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(
-        name = "BOOK_AUTHOR",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "UC_BOOK_AUTHOR",
-                        columnNames = {"bookId", "authorId"})
-        })
+@Table(name = "BOOK_AUTHOR",
+		uniqueConstraints = { @UniqueConstraint(name = "UC_BOOK_AUTHOR", columnNames = { "bookId", "authorId" }) })
 public class BookAuthor implements Serializable {
 
-    @EmbeddedId
-    BookAuthorId id;
+	@EmbeddedId
+	BookAuthorId id;
 
-    @Embeddable
-    public class BookAuthorId implements Serializable {
-        Long bookId;
-        Long authorId;
-    }
+	@Embeddable
+	public class BookAuthorId implements Serializable {
+
+		Long bookId;
+
+		Long authorId;
+
+	}
+
 }
-
-

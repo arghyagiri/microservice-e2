@@ -13,54 +13,59 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class BookController {
 
-    private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
-    private final BorrowerRepository borrowerRepository;
-    private final GenreRepository genreRepository;
-    private final LibraryBranchRepository libraryBranchRepository;
+	private final BookRepository bookRepository;
 
-    @GetMapping
-    public List<Book> getAll() {
-        return bookRepository.findAll();
-    }
+	private final AuthorRepository authorRepository;
 
-    @GetMapping(value = "/{id}")
-    public Book getById(@PathVariable("id") Long id) {
-        return bookRepository.findById(id).orElse(null);
-    }
+	private final BorrowerRepository borrowerRepository;
 
-    @PostMapping()
-    public Book add(@RequestBody Book book) {
-        return bookRepository.save(book);
-    }
+	private final GenreRepository genreRepository;
 
-    @PutMapping()
-    public Book put(@RequestBody Book book) {
-        return bookRepository.save(book);
-    }
+	private final LibraryBranchRepository libraryBranchRepository;
 
-    @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        bookRepository.deleteById(id);
-    }
+	@GetMapping
+	public List<Book> getAll() {
+		return bookRepository.findAll();
+	}
 
-    @GetMapping("/genre/{id}")
-    public Set<Book> getBooksByGenreId(@PathVariable("id") Long id) {
-        return bookRepository.findByGenreId(id);
-    }
+	@GetMapping(value = "/{id}")
+	public Book getById(@PathVariable("id") Long id) {
+		return bookRepository.findById(id).orElseThrow();
+	}
 
-    @GetMapping("/author/{id}")
-    public Set<Book> getBooksByAuthorId(@PathVariable("id") Long id) {
-        return bookRepository.findByAuthorId(id);
-    }
+	@PostMapping()
+	public Book add(@RequestBody Book book) {
+		return bookRepository.save(book);
+	}
 
-    @GetMapping("/library-branch/{id}")
-    public List<Book> getBooksByLibraryBranchId(@PathVariable("id") Long id) {
-        return bookRepository.findByLibraryBranchId(id);
-    }
+	@PutMapping()
+	public Book put(@RequestBody Book book) {
+		return bookRepository.save(book);
+	}
 
-    @GetMapping("/borrower/{id}")
-    public List<Book> getBooksByBorrowerId(@PathVariable("id") Long id) {
-        return bookRepository.findByBorrowerId(id);
-    }
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		bookRepository.deleteById(id);
+	}
+
+	@GetMapping("/genre/{id}")
+	public Set<Book> getBooksByGenreId(@PathVariable("id") Long id) {
+		return bookRepository.findByGenreId(id);
+	}
+
+	@GetMapping("/author/{id}")
+	public Set<Book> getBooksByAuthorId(@PathVariable("id") Long id) {
+		return bookRepository.findByAuthorId(id);
+	}
+
+	@GetMapping("/library-branch/{id}")
+	public List<Book> getBooksByLibraryBranchId(@PathVariable("id") Long id) {
+		return bookRepository.findByLibraryBranchId(id);
+	}
+
+	@GetMapping("/borrower/{id}")
+	public List<Book> getBooksByBorrowerId(@PathVariable("id") Long id) {
+		return bookRepository.findByBorrowerId(id);
+	}
+
 }

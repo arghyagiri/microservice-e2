@@ -14,19 +14,18 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(
-        name = "LIBRARY_BRANCH",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "UC_LIBRARY_BRANCH",
-                        columnNames = {"libraryBranchName"})
-        })
+@Table(name = "LIBRARY_BRANCH",
+		uniqueConstraints = { @UniqueConstraint(name = "UC_LIBRARY_BRANCH", columnNames = { "libraryBranchName" }) })
 public class LibraryBranch implements Serializable {
-    @Id
-    private Long libraryBranchId;
-    private String libraryBranchName;
-    private String address;
 
-    @OneToMany(mappedBy = "libraryBranch")
-    private Set<Book> books;
+	@Id
+	private Long libraryBranchId;
+
+	private String libraryBranchName;
+
+	private String address;
+
+	@OneToMany(mappedBy = "libraryBranch")
+	private Set<Book> books;
+
 }

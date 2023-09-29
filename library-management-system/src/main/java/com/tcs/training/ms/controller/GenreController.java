@@ -12,30 +12,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GenreController {
 
-    private final GenreRepository genreRepository;
+	private final GenreRepository genreRepository;
 
-    @GetMapping
-    public List<Genre> getAll() {
-        return genreRepository.findAll();
-    }
+	@GetMapping
+	public List<Genre> getAll() {
+		return genreRepository.findAll();
+	}
 
-    @GetMapping(value = "/{id}")
-    public Genre getById(@PathVariable("id") Long id) {
-        return genreRepository.findById(id).orElse(null);
-    }
+	@GetMapping(value = "/{id}")
+	public Genre getById(@PathVariable("id") Long id) {
+		return genreRepository.findById(id).orElseThrow();
+	}
 
-    @PostMapping()
-    public Genre add(@RequestBody Genre genre) {
-        return genreRepository.save(genre);
-    }
+	@PostMapping()
+	public Genre add(@RequestBody Genre genre) {
+		return genreRepository.save(genre);
+	}
 
-    @PutMapping()
-    public Genre put(@RequestBody Genre genre) {
-        return genreRepository.save(genre);
-    }
+	@PutMapping()
+	public Genre put(@RequestBody Genre genre) {
+		return genreRepository.save(genre);
+	}
 
-    @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        genreRepository.deleteById(id);
-    }
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		genreRepository.deleteById(id);
+	}
+
 }

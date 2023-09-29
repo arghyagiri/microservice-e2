@@ -14,22 +14,23 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(
-        name = "AUTHOR",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "UC_AUTHOR",
-                        columnNames = {"emailAddress"})
-        })
+@Table(name = "AUTHOR", uniqueConstraints = { @UniqueConstraint(name = "UC_AUTHOR", columnNames = { "emailAddress" }) })
 public class Author implements Serializable {
-    @Id
-    Long authorId;
-    String firstName;
-    String lastName;
-    String emailAddress;
-    String bio;
-    String country;
 
-    @ManyToMany(mappedBy = "authors")
-    private Set<Book> books;
+	@Id
+	Long authorId;
+
+	String firstName;
+
+	String lastName;
+
+	String emailAddress;
+
+	String bio;
+
+	String country;
+
+	@ManyToMany(mappedBy = "authors")
+	private Set<Book> books;
+
 }

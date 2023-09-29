@@ -15,42 +15,40 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(
-        name = "BOOK",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "UC_BOOK",
-                        columnNames = {"isbn"})
-        })
+@Table(name = "BOOK", uniqueConstraints = { @UniqueConstraint(name = "UC_BOOK", columnNames = { "isbn" }) })
 public class Book implements Serializable {
-    @Id
-    Long bookId;
-    String isbn;
-    String title;
-    String edition;
-    String category;
-    LocalDate firstPublished;
-    LocalDate lastEditionDate;
 
-    @ManyToMany
-    @JoinTable(
-            name = "book_author",
-            joinColumns = @JoinColumn(name = "bookId"),
-            inverseJoinColumns = @JoinColumn(name = "authorId"))
-    private Set<Author> authors;
+	@Id
+	Long bookId;
 
-    @ManyToMany
-    @JoinTable(
-            name = "book_genre",
-            joinColumns = @JoinColumn(name = "bookId"),
-            inverseJoinColumns = @JoinColumn(name = "genreId"))
-    private Set<Genre> genres;
+	String isbn;
 
-    @ManyToOne
-    @JoinColumn(name = "libraryBranchId")
-    LibraryBranch libraryBranch;
+	String title;
 
-    @ManyToOne
-    @JoinColumn(name = "borrowerId")
-    Borrower borrower;
+	String edition;
+
+	String category;
+
+	LocalDate firstPublished;
+
+	LocalDate lastEditionDate;
+
+	@ManyToOne
+	@JoinColumn(name = "libraryBranchId")
+	LibraryBranch libraryBranch;
+
+	@ManyToOne
+	@JoinColumn(name = "borrowerId")
+	Borrower borrower;
+
+	@ManyToMany
+	@JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "bookId"),
+			inverseJoinColumns = @JoinColumn(name = "authorId"))
+	private Set<Author> authors;
+
+	@ManyToMany
+	@JoinTable(name = "book_genre", joinColumns = @JoinColumn(name = "bookId"),
+			inverseJoinColumns = @JoinColumn(name = "genreId"))
+	private Set<Genre> genres;
+
 }

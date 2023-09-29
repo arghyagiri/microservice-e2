@@ -12,30 +12,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LibraryBranchController {
 
-    private final LibraryBranchRepository libraryBranchRepository;
+	private final LibraryBranchRepository libraryBranchRepository;
 
-    @GetMapping
-    public List<LibraryBranch> getAll() {
-        return libraryBranchRepository.findAll();
-    }
+	@GetMapping
+	public List<LibraryBranch> getAll() {
+		return libraryBranchRepository.findAll();
+	}
 
-    @GetMapping(value = "/{id}")
-    public LibraryBranch getById(@PathVariable("id") Long id) {
-        return libraryBranchRepository.findById(id).orElse(null);
-    }
+	@GetMapping(value = "/{id}")
+	public LibraryBranch getById(@PathVariable("id") Long id) {
+		return libraryBranchRepository.findById(id).orElseThrow();
+	}
 
-    @PostMapping()
-    public LibraryBranch add(@RequestBody LibraryBranch libraryBranch) {
-        return libraryBranchRepository.save(libraryBranch);
-    }
+	@PostMapping()
+	public LibraryBranch add(@RequestBody LibraryBranch libraryBranch) {
+		return libraryBranchRepository.save(libraryBranch);
+	}
 
-    @PutMapping()
-    public LibraryBranch put(@RequestBody LibraryBranch libraryBranch) {
-        return libraryBranchRepository.save(libraryBranch);
-    }
+	@PutMapping()
+	public LibraryBranch put(@RequestBody LibraryBranch libraryBranch) {
+		return libraryBranchRepository.save(libraryBranch);
+	}
 
-    @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        libraryBranchRepository.deleteById(id);
-    }
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		libraryBranchRepository.deleteById(id);
+	}
+
 }

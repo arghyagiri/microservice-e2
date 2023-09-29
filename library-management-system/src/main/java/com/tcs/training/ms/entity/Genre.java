@@ -14,18 +14,15 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(
-        name = "GENRE",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "UC_GENRE",
-                        columnNames = {"genreName"})
-        })
+@Table(name = "GENRE", uniqueConstraints = { @UniqueConstraint(name = "UC_GENRE", columnNames = { "genreName" }) })
 public class Genre implements Serializable {
-    @Id
-    private Long genreId;
-    private String genreName;
 
-    @ManyToMany(mappedBy = "genres")
-    private Set<Book> books;
+	@Id
+	private Long genreId;
+
+	private String genreName;
+
+	@ManyToMany(mappedBy = "genres")
+	private Set<Book> books;
+
 }

@@ -12,30 +12,32 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthorController {
 
-    private final AuthorRepository authorRepository;
+	private final AuthorRepository authorRepository;
 
-    @GetMapping
-    public List<Author> getAll() {
-        return authorRepository.findAll();
-    }
+	@GetMapping
+	public List<Author> getAll() {
+		return authorRepository.findAll();
+	}
 
-    @GetMapping(value = "/{id}")
-    public Author getById(@PathVariable("id") Long id) {
-        return authorRepository.findById(id).orElse(null);
-    }
+	@GetMapping(value = "/{id}")
+	public Author getById(@PathVariable("id") Long id) {
 
-    @PostMapping()
-    public Author add(@RequestBody Author author) {
-        return authorRepository.save(author);
-    }
+		return authorRepository.findById(id).orElseThrow();
+	}
 
-    @PutMapping()
-    public Author put(@RequestBody Author author) {
-        return authorRepository.save(author);
-    }
+	@PostMapping()
+	public Author add(@RequestBody Author author) {
+		return authorRepository.save(author);
+	}
 
-    @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        authorRepository.deleteById(id);
-    }
+	@PutMapping()
+	public Author put(@RequestBody Author author) {
+		return authorRepository.save(author);
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		authorRepository.deleteById(id);
+	}
+
 }

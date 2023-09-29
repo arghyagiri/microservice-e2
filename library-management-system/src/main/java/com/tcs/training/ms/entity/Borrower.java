@@ -14,21 +14,22 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(
-        name = "BORROWER",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "UC_BORROWER",
-                        columnNames = {"emailAddress"})
-        })
+@Table(name = "BORROWER",
+		uniqueConstraints = { @UniqueConstraint(name = "UC_BORROWER", columnNames = { "emailAddress" }) })
 public class Borrower implements Serializable {
-    @Id
-    private Long borrowerId;
-    private String firstName;
-    private String lastName;
-    private String emailAddress;
-    private String phone;
 
-    @OneToMany(mappedBy = "borrower")
-    private Set<Book> books;
+	@Id
+	private Long borrowerId;
+
+	private String firstName;
+
+	private String lastName;
+
+	private String emailAddress;
+
+	private String phone;
+
+	@OneToMany(mappedBy = "borrower")
+	private Set<Book> books;
+
 }

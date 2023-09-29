@@ -12,30 +12,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BorrowerController {
 
-    private final BorrowerRepository borrowerRepository;
+	private final BorrowerRepository borrowerRepository;
 
-    @GetMapping
-    public List<Borrower> getAll() {
-        return borrowerRepository.findAll();
-    }
+	@GetMapping
+	public List<Borrower> getAll() {
+		return borrowerRepository.findAll();
+	}
 
-    @GetMapping(value = "/{id}")
-    public Borrower getById(@PathVariable("id") Long id) {
-        return borrowerRepository.findById(id).orElse(null);
-    }
+	@GetMapping(value = "/{id}")
+	public Borrower getById(@PathVariable("id") Long id) {
+		return borrowerRepository.findById(id).orElseThrow();
+	}
 
-    @PostMapping()
-    public Borrower add(@RequestBody Borrower borrower) {
-        return borrowerRepository.save(borrower);
-    }
+	@PostMapping()
+	public Borrower add(@RequestBody Borrower borrower) {
+		return borrowerRepository.save(borrower);
+	}
 
-    @PutMapping()
-    public Borrower put(@RequestBody Borrower borrower) {
-        return borrowerRepository.save(borrower);
-    }
+	@PutMapping()
+	public Borrower put(@RequestBody Borrower borrower) {
+		return borrowerRepository.save(borrower);
+	}
 
-    @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        borrowerRepository.deleteById(id);
-    }
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		borrowerRepository.deleteById(id);
+	}
+
 }
