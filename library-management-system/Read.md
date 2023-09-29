@@ -37,7 +37,7 @@ http://localhost:8888/app/swagger-ui/index.html
 * Add a new book: ```POST /api/books```
 * Update a book: ```PUT /api/books/{id}```
 * Delete a book: ```DELETE /api/books/{id}```
-* 
+
 ### Author-related endpoints:
 * Retrieve all authors: ```GET /api/authors```
 * Get an author by ID: ```GET /api/authors/{id}```
@@ -81,4 +81,4 @@ http://localhost:8888/app/swagger-ui/index.html
 
 ## Copyright
 
-Released under the Apache License 2.0. See the [LICENSE](https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
+Released under the Apache License 2.0. See the [LICENSE](https://github.com/arghyagiri/microservice-e2/blob/main/LICENSE) file.
