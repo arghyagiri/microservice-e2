@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: borrowing-service
+  datasource:
+    url: jdbc:h2:file:./library-management-system-modularized/borrowing-service/database/borrowdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: create-drop
+    show-sql: true
+      #defer-datasource-initialization: true
+      #sql:
+      #init:
+    #mode: always
+  h2:
+    console:
+      enabled: true
+  jackson:
+    default-property-inclusion: non_empty
+server:
+  port: 8891
+  servlet:
+    context-path: /
+
+springdoc:
+  packagesToScan: com.tcs.training.borrowing
+
+logging:
+  level:
+    .: INFO
+
+
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+  bookClient:
+    name: BookAPI
+    url: http://localhost:8890/books

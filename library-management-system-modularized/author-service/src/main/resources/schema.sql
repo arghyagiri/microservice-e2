@@ -1,0 +1,1 @@
+create table if not exists author (author_id bigint not null, bio varchar(255), country varchar(255), email_address varchar(255), first_name varchar(255), last_name varchar(255), primary key (author_id), constraint UC_AUTHOR unique (email_address))

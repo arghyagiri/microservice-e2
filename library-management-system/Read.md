@@ -14,7 +14,7 @@ For building and running the application you need:
 ## Running the application locally
 
 There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method
-in the `com.tcs.training.ms.LibraryManagementApplication` class from your IDE.
+in the `com.tcs.training.ms.AuthorApplication` class from your IDE.
 
 Alternatively you can use
 the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html)
@@ -71,17 +71,17 @@ http://localhost:8888/app/swagger-ui/index.html
 ### Borrower-related endpoints:
 
 * Retrieve all borrowers: ```GET /api/borrowers```
-* Get a borrower by ID: ```GET /api/borrowers/{id}```
-* Add a new borrower: ```POST /api/borrowers```
-* Update a borrower: ```PUT /api/borrowers/{id}```
-* Delete a borrower: ```DELETE /api/borrowers/{id}```
+* Get a borrowing by ID: ```GET /api/borrowers/{id}```
+* Add a new borrowing: ```POST /api/borrowers```
+* Update a borrowing: ```PUT /api/borrowers/{id}```
+* Delete a borrowing: ```DELETE /api/borrowers/{id}```
 
 ### Other endpoints:
 
 * Retrieve books by genre: ```GET /api/books/genre/{id}```
 * Retrieve books by author: ```GET /api/books/author/{id}```
 * Retrieve books by library branch: ```GET /api/books/library-branch/{id}```
-* Retrieve books borrowed by a borrower: ```GET /api/books/borrower/{id}```
+* Retrieve books borrowed by a borrowing: ```GET /api/books/borrowing/{id}```
 
 ## API Test Client
 

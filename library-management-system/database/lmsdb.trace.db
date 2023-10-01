@@ -1,0 +1,12 @@
+2023-09-28 16:25:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "BIO CHARACTER VARYING(255)": "U&'PHILIP ROTH won the Pulitzer Prize for American Pastoral in 1997. In 1998 he ... (832)"; SQL statement:
+insert into author (bio,country,email_address,first_name,last_name,author_id) values (?,?,?,?,?,?) [22001-214]
+2023-09-29 03:06:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "BIO CHARACTER VARYING(255)": "'Author of the ""profoundly sensitive, fresh and beautiful"" poetry of Gitanjali, ... (641)"; SQL statement:
+insert into author (bio,country,email_address,first_name,last_name,author_id) values (?,?,?,?,?,?) [22001-214]
+2023-09-29 03:29:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "BIO CHARACTER VARYING(255)": "'Author of the ""profoundly sensitive, fresh and beautiful"" poetry of Gitanjali, ... (641)"; SQL statement:
+insert into author (bio,country,email_address,first_name,last_name,author_id) values (?,?,?,?,?,?) [22001-214]
+2023-09-29 03:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "BIO CHARACTER VARYING(255)": "'Author of the ""profoundly sensitive, fresh and beautiful"" poetry of Gitanjali, ... (641)"; SQL statement:
+update author set bio=?,country=?,email_address=?,first_name=?,last_name=? where author_id=? [22001-214]
