@@ -1,15 +1,15 @@
-package com.tcs.training.book.feign.exception;
+package com.tcs.training.author.feign.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tcs.training.book.exception.NoDataFoundException;
-import com.tcs.training.book.model.exception.Problem;
+import com.tcs.training.author.exception.NoDataFoundException;
+import com.tcs.training.author.model.exception.Problem;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public class AuthorClientErrorDecoder implements ErrorDecoder {
+public class BookClientErrorDecoder implements ErrorDecoder {
 
 	private final ErrorDecoder errorDecoder = new Default();
 

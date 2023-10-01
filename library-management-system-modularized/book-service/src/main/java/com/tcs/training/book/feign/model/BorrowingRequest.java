@@ -1,8 +1,5 @@
-package com.tcs.training.borrowing.model;
+package com.tcs.training.book.feign.model;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,18 +8,13 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class BorrowingRequest {
 
-	@Valid
-	@NotNull
-	@NotEmpty
 	private List<Long> bookIds;
 
-	@Valid
-	@NotNull
 	private String userId;
 
 }

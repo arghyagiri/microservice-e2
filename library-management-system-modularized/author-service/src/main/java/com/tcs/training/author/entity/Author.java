@@ -14,22 +14,22 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @Table(name = "AUTHOR",
-        uniqueConstraints = {@UniqueConstraint(name = "UC_AUTHOR", columnNames = {"firstName", "lastName"})})
+		uniqueConstraints = { @UniqueConstraint(name = "UC_AUTHOR", columnNames = { "firstName", "lastName" }) })
 public class Author implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_sequence")
-    @SequenceGenerator(name = "author_sequence", allocationSize = 100)
-    Long authorId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_sequence")
+	@SequenceGenerator(name = "author_sequence", allocationSize = 100)
+	Long authorId;
 
-    String firstName;
+	String firstName;
 
-    String lastName;
+	String lastName;
 
-    String emailAddress;
+	String emailAddress;
 
-    String bio;
+	String bio;
 
-    String country;
+	String country;
 
 }

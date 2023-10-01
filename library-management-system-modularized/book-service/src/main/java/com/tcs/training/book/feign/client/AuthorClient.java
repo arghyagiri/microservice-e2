@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Set;
 
 @FeignClient(name = "${feign.authorClient.name}", url = "${feign.authorClient.url}",
-        configuration = AuthorClientErrorDecoder.class)
+		configuration = AuthorClientErrorDecoder.class)
 public interface AuthorClient {
 
-    @RequestMapping(value = "/{authorId}")
-    AuthorDTO getAuthor(@PathVariable("authorId") Long authorId);
+	@RequestMapping(value = "/{authorId}")
+	AuthorDTO getAuthor(@PathVariable("authorId") Long authorId);
 
-    @GetMapping(value = "/get-by-ids")
-    Set<AuthorDTO> getAuthors(@RequestParam("id") Set<Long> ids);
+	@GetMapping(value = "/get-by-ids")
+	Set<AuthorDTO> getAuthors(@RequestParam("id") Set<Long> ids);
 
 }

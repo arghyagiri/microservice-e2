@@ -1,8 +1,7 @@
-package com.tcs.training.book.model;
+package com.tcs.training.author.feign.model;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,10 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class BookDTO {
+
+	Long bookId;
 
 	String isbn;
 
@@ -25,7 +27,8 @@ public class BookDTO {
 
 	LocalDate lastEditionDate;
 
-	@Enumerated(EnumType.STRING)
-	private BookStatus status;
+	/*
+	 * @Enumerated(EnumType.STRING) private BookStatus status;
+	 */
 
 }

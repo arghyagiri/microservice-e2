@@ -1,6 +1,5 @@
 package com.tcs.training.borrowing.feign.model;
 
-import com.tcs.training.borrowing.model.BookStatus;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -16,21 +15,21 @@ import java.time.LocalDate;
 @Builder
 public class BookDTO {
 
-    Long bookId;
+	Long bookId;
 
-    String isbn;
+	String isbn;
 
-    String title;
+	String title;
 
-    String edition;
+	String edition;
 
-    String category;
+	String category;
 
-    LocalDate firstPublished;
+	LocalDate firstPublished;
 
-    LocalDate lastEditionDate;
+	LocalDate lastEditionDate;
 
-    @Enumerated(EnumType.STRING)
-    private BookStatus status;
+	@Enumerated(EnumType.STRING)
+	private BookStatus status;
 
 }

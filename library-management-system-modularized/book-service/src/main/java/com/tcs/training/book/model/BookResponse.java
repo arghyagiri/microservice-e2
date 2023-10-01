@@ -12,6 +12,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class BookResponse extends BookDTO {
 
-    private Set<AuthorDTO> authors;
+	private Set<AuthorDTO> authors;
 
 }

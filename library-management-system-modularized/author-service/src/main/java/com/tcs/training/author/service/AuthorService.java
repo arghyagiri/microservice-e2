@@ -1,6 +1,8 @@
 package com.tcs.training.author.service;
 
 import com.tcs.training.author.entity.Author;
+import com.tcs.training.author.feign.client.BookClient;
+import com.tcs.training.author.feign.model.BookDTO;
 import com.tcs.training.author.repository.AuthorRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -15,33 +17,39 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AuthorService {
 
-    private final AuthorRepository authorRepository;
+	private final AuthorRepository authorRepository;
 
-    public List<Author> getAll() {
-        return authorRepository.findAll();
-    }
+	private final BookClient bookClient;
 
-    public Author getById(Long id) {
-        return authorRepository.findById(id).orElseThrow();
-    }
+	public List<Author> getAll() {
+		return authorRepository.findAll();
+	}
 
-    public List<Author> getByIds(Set<Long> ids) {
-        return authorRepository.findAllById(ids);
-    }
+	public Author getById(Long id) {
+		return authorRepository.findById(id).orElseThrow();
+	}
 
-    @Transactional
-    public Author add(@RequestBody Author author) {
-        return authorRepository.save(author);
-    }
+	public List<Author> getByIds(Set<Long> ids) {
+		return authorRepository.findAllById(ids);
+	}
 
-    @Transactional
-    public Author put(@RequestBody Author author) {
-        return authorRepository.save(author);
-    }
+	@Transactional
+	public Author add(@RequestBody Author author) {
+		return authorRepository.save(author);
+	}
 
-    @Transactional
-    public void delete(@PathVariable("id") Long id) {
-        authorRepository.deleteById(id);
-    }
+	@Transactional
+	public Author put(@RequestBody Author author) {
+		return authorRepository.save(author);
+	}
+
+	@Transactional
+	public void delete(@PathVariable("id") Long id) {
+		authorRepository.deleteById(id);
+	}
+
+	public List<BookDTO> getBooks(Long authorId) {
+		return bookClient.getBooks(authorId);
+	}
 
 }

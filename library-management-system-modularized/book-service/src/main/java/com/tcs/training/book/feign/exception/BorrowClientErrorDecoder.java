@@ -9,7 +9,7 @@ import feign.codec.ErrorDecoder;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class AuthorClientErrorDecoder implements ErrorDecoder {
+public class BorrowClientErrorDecoder implements ErrorDecoder {
 
 	private final ErrorDecoder errorDecoder = new Default();
 

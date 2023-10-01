@@ -43,3 +43,6 @@ feign:
   authorClient:
     name: AuthorAPI
     url: http://localhost:8889/authors
+  borrowClient:
+    name: BorrowingAPI
+    url: http://localhost:8891/borrowings

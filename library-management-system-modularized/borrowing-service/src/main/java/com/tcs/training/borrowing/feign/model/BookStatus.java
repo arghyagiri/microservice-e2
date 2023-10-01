@@ -1,4 +1,4 @@
-package com.tcs.training.book.model;
+package com.tcs.training.borrowing.feign.model;
 
 public enum BookStatus {
 

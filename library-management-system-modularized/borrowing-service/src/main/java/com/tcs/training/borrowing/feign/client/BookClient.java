@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Set;
 
 @FeignClient(name = "${feign.bookClient.name}", url = "${feign.bookClient.url}",
-        configuration = BookClientErrorDecoder.class)
+		configuration = BookClientErrorDecoder.class)
 public interface BookClient {
 
-    @GetMapping(value = "/get-by-ids")
-    Set<BookDTO> getBooks(@RequestParam("id") Set<Long> ids);
+	@GetMapping(value = "/get-by-ids")
+	Set<BookDTO> getBooks(@RequestParam("id") Set<Long> ids);
 
-    @PostMapping(value = "/update-status")
-    BookDTO updateBookStatus(@RequestBody BookDTO bookDTO);
+	@PostMapping(value = "/update-status")
+	BookDTO updateBookStatus(@RequestBody BookDTO bookDTO);
 
 }

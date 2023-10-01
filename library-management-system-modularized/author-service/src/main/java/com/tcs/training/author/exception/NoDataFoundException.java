@@ -1,4 +1,4 @@
-package com.tcs.training.book.exception;
+package com.tcs.training.author.exception;
 
 public class NoDataFoundException extends RuntimeException {
 

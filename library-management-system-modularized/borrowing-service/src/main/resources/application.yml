@@ -43,3 +43,7 @@ feign:
   bookClient:
     name: BookAPI
     url: http://localhost:8890/books
+
+policy:
+  return:
+    days: 30
