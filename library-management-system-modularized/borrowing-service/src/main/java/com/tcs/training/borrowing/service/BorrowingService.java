@@ -112,4 +112,9 @@ public class BorrowingService {
 		return borrowerRepository.saveAll(borrowings);
 	}
 
+	public Set<BookDTO> getOverDueBooks() {
+		List<Borrowing> borrowingList = borrowerRepository.findOverDueBooks(LocalDate.now());
+		return bookClient.getBooks(borrowingList.stream().map(Borrowing::getBookId).collect(Collectors.toSet()));
+	}
+
 }

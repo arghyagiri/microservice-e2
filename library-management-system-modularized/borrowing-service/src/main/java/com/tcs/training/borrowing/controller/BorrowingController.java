@@ -1,6 +1,7 @@
 package com.tcs.training.borrowing.controller;
 
 import com.tcs.training.borrowing.entity.Borrowing;
+import com.tcs.training.borrowing.feign.model.BookDTO;
 import com.tcs.training.borrowing.model.BorrowingRequest;
 import com.tcs.training.borrowing.model.BorrowingResponse;
 import com.tcs.training.borrowing.service.BorrowingService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("borrowings")
@@ -59,6 +61,11 @@ public class BorrowingController {
 	@GetMapping(value = "/{id}")
 	public Borrowing getBorrowedBooksById(@PathVariable("id") Long id) {
 		return borrowingService.getBorrowedBooksByRecordId(id);
+	}
+
+	@GetMapping(value = "/over-due-books")
+	public Set<BookDTO> getOverDueBooks() {
+		return borrowingService.getOverDueBooks();
 	}
 
 }

@@ -834,7 +834,7 @@
 			]
 		},
 		{
-			"name": "Book Catalog after Return",
+			"name": "Get Overdue Books",
 			"event": [
 				{
 					"listen": "test",
@@ -857,12 +857,13 @@
 					}
 				],
 				"url": {
-					"raw": "{{bookBaseUrl}}/books",
+					"raw": "{{borrowBaseUrl}}/borrowings/over-due-books",
 					"host": [
-						"{{bookBaseUrl}}"
+						"{{borrowBaseUrl}}"
 					],
 					"path": [
-						"books"
+						"borrowings",
+						"over-due-books"
 					]
 				}
 			},
@@ -878,12 +879,18 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/books",
+							"raw": "{{baseUrl}}/borrowings/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"books"
+								"borrowings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
 							]
 						}
 					},
@@ -897,7 +904,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n  {\n    \"bookId\": \"<long>\",\n    \"isbn\": \"<string>\",\n    \"title\": \"<string>\",\n    \"edition\": \"<string>\",\n    \"category\": \"<string>\",\n    \"firstPublished\": \"<date>\",\n    \"lastEditionDate\": \"<date>\",\n    \"authorIds\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"status\": \"BORROWED\"\n  },\n  {\n    \"bookId\": \"<long>\",\n    \"isbn\": \"<string>\",\n    \"title\": \"<string>\",\n    \"edition\": \"<string>\",\n    \"category\": \"<string>\",\n    \"firstPublished\": \"<date>\",\n    \"lastEditionDate\": \"<date>\",\n    \"authorIds\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"status\": \"AVAILABLE\"\n  }\n]"
+					"body": "{\n  \"borrowingId\": \"<long>\",\n  \"bookId\": \"<long>\",\n  \"borrowingDate\": \"<date>\",\n  \"returnDate\": \"<date>\",\n  \"userId\": \"<string>\"\n}"
 				}
 			]
 		}
