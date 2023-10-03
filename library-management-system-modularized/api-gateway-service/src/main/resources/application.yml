@@ -11,17 +11,17 @@ spring:
         response-timeout: 5s
       routes:
         - id: author-service
-          uri: http://localhost:8889
+          uri: lb://AUTHOR-SERVICE
           predicates:
-            - Path=/author-service/**
+            - Path=/authors/**
         - id: book-service
-          uri: http://localhost:8890
+          uri: lb://BOOK-SERVICE
           predicates:
-            - Path=/book-service/**
+            - Path=/books/**
         - id: borrowing-service
-          uri: http://localhost:8891
+          uri: lb://BORROWING-SERVICE
           predicates:
-            - Path=/borrowing-service/**
+            - Path=/borrowings/**
 
 server:
   port: 8090

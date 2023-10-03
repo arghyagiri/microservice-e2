@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AuthorDTO {
 
-    private String firstName;
+	private String firstName;
 
-    private String lastName;
+	private String lastName;
 
-    private String emailAddress;
+	private String emailAddress;
 
-    private String bio;
+	private String bio;
 
-    private String country;
+	private String country;
 
 }

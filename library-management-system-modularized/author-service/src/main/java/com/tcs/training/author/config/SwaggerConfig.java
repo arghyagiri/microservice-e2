@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-    @Bean
-    public OpenAPI api() {
-        return new OpenAPI().info(new Info().title("author-service").description("Author App").version("1.0.0"))
-                .addServersItem(new Server().url("/"));
-    }
+	@Bean
+	public OpenAPI api() {
+		return new OpenAPI().info(new Info().title("author-service").description("Author App").version("1.0.0"))
+			.addServersItem(new Server().url("/"));
+	}
 
 }
