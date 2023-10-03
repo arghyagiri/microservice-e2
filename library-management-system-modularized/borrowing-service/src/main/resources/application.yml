@@ -20,8 +20,8 @@ spring:
   jackson:
     default-property-inclusion: non_empty
 server:
-  port: 8891
-  #port: 0
+  #port: 8891
+  port: 0
   servlet:
     context-path: /
 management:
