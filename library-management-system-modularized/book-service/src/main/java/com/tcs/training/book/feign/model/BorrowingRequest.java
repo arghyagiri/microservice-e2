@@ -13,8 +13,8 @@ import java.util.List;
 @Builder
 public class BorrowingRequest {
 
-	private List<Long> bookIds;
+    private List<Long> bookIds;
 
-	private String userId;
+    private String userId;
 
 }

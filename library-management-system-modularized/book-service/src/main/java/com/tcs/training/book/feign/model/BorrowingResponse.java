@@ -13,20 +13,20 @@ import java.time.LocalDate;
 @Builder
 public class BorrowingResponse {
 
-	private Long borrowingId;
+    private Long borrowingId;
 
-	private Long bookId;
+    private Long bookId;
 
-	private LocalDate borrowingDate;
+    private LocalDate borrowingDate;
 
-	private LocalDate returnDate;
+    private LocalDate returnDate;
 
-	private LocalDate dateReturned;
+    private LocalDate dateReturned;
 
-	private String userId;
+    private String userId;
 
-	private int returned;
+    private int returned;
 
-	private int eligibleForFineCollection;
+    private int eligibleForFineCollection;
 
 }

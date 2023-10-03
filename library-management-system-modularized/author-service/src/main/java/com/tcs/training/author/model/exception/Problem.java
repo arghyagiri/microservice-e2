@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
  */
 public class Problem {
 
-	private String type;
+    private String type;
 
-	private String title;
+    private String title;
 
-	private Integer status;
+    private Integer status;
 
-	private String detail;
+    private String detail;
 
-	private String instance;
+    private String instance;
 
 }

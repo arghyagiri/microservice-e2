@@ -13,19 +13,19 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class BookDTO {
 
-	String isbn;
+    String isbn;
 
-	String title;
+    String title;
 
-	String edition;
+    String edition;
 
-	String category;
+    String category;
 
-	LocalDate firstPublished;
+    LocalDate firstPublished;
 
-	LocalDate lastEditionDate;
+    LocalDate lastEditionDate;
 
-	@Enumerated(EnumType.STRING)
-	private BookStatus status;
+    @Enumerated(EnumType.STRING)
+    private BookStatus status;
 
 }

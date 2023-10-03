@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: api-gateway-service
+  jackson:
+    default-property-inclusion: non_empty
+
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 5s
+      routes:
+        - id: author-service
+          uri: http://localhost:8889
+          predicates:
+            - Path=/author-service/**
+        - id: book-service
+          uri: http://localhost:8890
+          predicates:
+            - Path=/book-service/**
+        - id: borrowing-service
+          uri: http://localhost:8891
+          predicates:
+            - Path=/borrowing-service/**
+
+server:
+  port: 8090
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true

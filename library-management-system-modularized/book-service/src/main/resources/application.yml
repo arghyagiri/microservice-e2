@@ -12,7 +12,7 @@ spring:
     show-sql: true
       #defer-datasource-initialization: true
       #sql:
-      #init:
+    #init:
     #mode: always
   h2:
     console:
@@ -21,8 +21,16 @@ spring:
     default-property-inclusion: non_empty
 server:
   port: 8890
+  #port: 0
   servlet:
     context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
 
 springdoc:
   packagesToScan: com.tcs.training.book
@@ -46,3 +54,13 @@ feign:
   borrowClient:
     name: BorrowingAPI
     url: http://localhost:8891/borrowings
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    registerWithEureka: true
+    fetchRegistry: true
+  instance:
+    preferIpAddress: false

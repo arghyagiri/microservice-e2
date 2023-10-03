@@ -16,30 +16,30 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "BOOK", uniqueConstraints = { @UniqueConstraint(name = "UC_BOOK", columnNames = { "isbn" }) })
+@Table(name = "BOOK", uniqueConstraints = {@UniqueConstraint(name = "UC_BOOK", columnNames = {"isbn"})})
 public class Book implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_sequence")
-	@SequenceGenerator(name = "book_sequence", allocationSize = 100)
-	Long bookId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_sequence")
+    @SequenceGenerator(name = "book_sequence", allocationSize = 100)
+    Long bookId;
 
-	String isbn;
+    String isbn;
 
-	String title;
+    String title;
 
-	String edition;
+    String edition;
 
-	String category;
+    String category;
 
-	LocalDate firstPublished;
+    LocalDate firstPublished;
 
-	LocalDate lastEditionDate;
+    LocalDate lastEditionDate;
 
-	@Transient
-	private Set<Long> authorIds;
+    @Transient
+    private Set<Long> authorIds;
 
-	@Enumerated(EnumType.STRING)
-	private BookStatus status;
+    @Enumerated(EnumType.STRING)
+    private BookStatus status;
 
 }

@@ -16,13 +16,13 @@ import java.util.List;
 @AllArgsConstructor
 public class BorrowingRequest {
 
-	@Valid
-	@NotNull
-	@NotEmpty
-	private List<Long> bookIds;
+    @Valid
+    @NotNull
+    @NotEmpty
+    private List<Long> bookIds;
 
-	@Valid
-	@NotNull
-	private String userId;
+    @Valid
+    @NotNull
+    private String userId;
 
 }

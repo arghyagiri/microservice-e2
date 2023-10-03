@@ -15,18 +15,18 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 public class GenericRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-	@Value("${spring.application.name}")
-	String appName;
+    @Value("${spring.application.name}")
+    String appName;
 
-	@ExceptionHandler({ NoSuchElementException.class, NoDataFoundException.class })
-	public ResponseEntity<Problem> handleNoSuchElementException(Exception ex, HttpServletRequest request) {
-		return new ResponseEntity<>(Problem.builder()
-			.title("No Data Found")
-			.status(HttpStatus.NOT_FOUND.value())
-			.type(request.getContextPath())
-			.detail("[" + appName + "] >> " + ex.getMessage())
-			.instance(request.getRequestURI())
-			.build(), new HttpHeaders(), HttpStatus.NOT_FOUND);
-	}
+    @ExceptionHandler({NoSuchElementException.class, NoDataFoundException.class})
+    public ResponseEntity<Problem> handleNoSuchElementException(Exception ex, HttpServletRequest request) {
+        return new ResponseEntity<>(Problem.builder()
+                .title("No Data Found")
+                .status(HttpStatus.NOT_FOUND.value())
+                .type(request.getContextPath())
+                .detail("[" + appName + "] >> " + ex.getMessage())
+                .instance(request.getRequestURI())
+                .build(), new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
 
 }

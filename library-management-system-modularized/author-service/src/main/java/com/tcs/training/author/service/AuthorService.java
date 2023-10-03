@@ -17,39 +17,39 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AuthorService {
 
-	private final AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
-	private final BookClient bookClient;
+    private final BookClient bookClient;
 
-	public List<Author> getAll() {
-		return authorRepository.findAll();
-	}
+    public List<Author> getAll() {
+        return authorRepository.findAll();
+    }
 
-	public Author getById(Long id) {
-		return authorRepository.findById(id).orElseThrow();
-	}
+    public Author getById(Long id) {
+        return authorRepository.findById(id).orElseThrow();
+    }
 
-	public List<Author> getByIds(Set<Long> ids) {
-		return authorRepository.findAllById(ids);
-	}
+    public List<Author> getByIds(Set<Long> ids) {
+        return authorRepository.findAllById(ids);
+    }
 
-	@Transactional
-	public Author add(@RequestBody Author author) {
-		return authorRepository.save(author);
-	}
+    @Transactional
+    public Author add(@RequestBody Author author) {
+        return authorRepository.save(author);
+    }
 
-	@Transactional
-	public Author put(@RequestBody Author author) {
-		return authorRepository.save(author);
-	}
+    @Transactional
+    public Author put(@RequestBody Author author) {
+        return authorRepository.save(author);
+    }
 
-	@Transactional
-	public void delete(@PathVariable("id") Long id) {
-		authorRepository.deleteById(id);
-	}
+    @Transactional
+    public void delete(@PathVariable("id") Long id) {
+        authorRepository.deleteById(id);
+    }
 
-	public List<BookDTO> getBooks(Long authorId) {
-		return bookClient.getBooks(authorId);
-	}
+    public List<BookDTO> getBooks(Long authorId) {
+        return bookClient.getBooks(authorId);
+    }
 
 }
