@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: customer-service
+  datasource:
+    url: jdbc:h2:mem:customerdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: create-drop
+    show-sql: true
+      #defer-datasource-initialization: true
+      #sql:
+    #init:
+    #mode: always
+  h2:
+    console:
+      enabled: true
+  jackson:
+    default-property-inclusion: non_empty
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    openfeign:
+      lazy-attributes-resolution: true
+
+server:
+  #port: 8889
+  port: 0
+  servlet:
+    context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+
+springdoc:
+  packagesToScan: com.tcs.training
+
+logging:
+  level:
+    .: INFO
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8762/eureka}
+    registerWithEureka: true
+    fetchRegistry: true
+  instance:
+    preferIpAddress: false

@@ -1,6 +1,9 @@
 spring:
   application:
     name: api-gateway-service
+  redis:
+    host: localhost
+    port: 6379
   jackson:
     default-property-inclusion: non_empty
 
@@ -18,6 +21,14 @@ spring:
           uri: lb://BOOK-SERVICE
           predicates:
             - Path=/books/**
+          filters:
+            #- StripPrefix=1
+          - name: RequestRateLimiter
+            args:
+              key-resolver: "#{@userKeyResolver}"
+              redis-rate-limiter.replenishRate: 1
+              redis-rate-limiter.burstCapacity: 1
+              redis-rate-limiter.requestedTokens: 1
         - id: borrowing-service
           uri: lb://BORROWING-SERVICE
           predicates:
@@ -26,7 +37,14 @@ spring:
 server:
   port: 8090
 
-
+management:
+  health:
+    redis:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 eureka:
   client:
     serviceUrl:

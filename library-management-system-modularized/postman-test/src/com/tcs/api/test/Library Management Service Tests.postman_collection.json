@@ -1,0 +1,969 @@
+{
+	"info": {
+		"_postman_id": "fda505f3-f05b-44b6-aa33-41a91c7d97b9",
+		"name": "Library Management Service Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30165012"
+	},
+	"item": [
+		{
+			"name": "Create Author",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Check if author created.\", function () {\r",
+							"        pm.collectionVariables.set(\"authorId\",jsonData.authorId);\r",
+							"        pm.expect(jsonData.authorId).not.eql(undefined);\r",
+							"    });\r",
+							"\r",
+							"    \r",
+							"    pm.test(\"Check if author name returned.\", function () {\r",
+							"        pm.expect(jsonData.firstName).not.eql(undefined);\r",
+							"        pm.expect(jsonData.lastName).not.eql(undefined);\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"{{$randomFirstName}}\",\n  \"lastName\": \"{{$randomLastName}}\",\n  \"emailAddress\": \"{{$randomEmail}}\",\n  \"bio\": \"{{$randomWords}}\",\n  \"country\": \"{{$randomCountry}}\"\n}",
+					"options": {
+						"raw": {
+							"headerFamily": "json",
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{authorBaseUrl}}/authors",
+					"host": [
+						"{{authorBaseUrl}}"
+					],
+					"path": [
+						"authors"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"emailAddress\": \"<string>\",\n  \"bio\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/authors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"authorId\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"emailAddress\": \"<string>\",\n  \"bio\": \"<string>\",\n  \"country\": \"<string>\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Check if book created.\", function () {\r",
+							"        pm.collectionVariables.set(\"bookId\",jsonData.bookId);\r",
+							"        pm.expect(jsonData.bookId).not.eql(undefined);\r",
+							"    });\r",
+							"\r",
+							"    \r",
+							"    pm.test(\"Check if book title returned.\", function () {\r",
+							"        var jsonData = pm.response.json();\r",
+							"        pm.expect(jsonData.title).not.eql(undefined);\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"isbn\": \"{{$randomPhoneNumber}}\",\n  \"title\": \"{{$randomPhrase}}\",\n  \"edition\": \"{{$randomInt}}\",\n  \"category\": \"{{$randomColor}}\",\n  \"firstPublished\": \"1985-09-22\",\n  \"lastEditionDate\": \"2015-09-18\",\n  \"authorIds\": [\n    {{authorId}}\n  ],  \n  \"status\": \"AVAILABLE\"\n}",
+					"options": {
+						"raw": {
+							"headerFamily": "json",
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bookBaseUrl}}/books",
+					"host": [
+						"{{bookBaseUrl}}"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bookId\": \"<long>\",\n  \"isbn\": \"<string>\",\n  \"title\": \"<string>\",\n  \"edition\": \"<string>\",\n  \"category\": \"<string>\",\n  \"firstPublished\": \"<date>\",\n  \"lastEditionDate\": \"<date>\",\n  \"authorIds\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"status\": \"BORROWED\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"bookId\": \"<long>\",\n  \"isbn\": \"<string>\",\n  \"title\": \"<string>\",\n  \"edition\": \"<string>\",\n  \"category\": \"<string>\",\n  \"firstPublished\": \"<date>\",\n  \"lastEditionDate\": \"<date>\",\n  \"authorIds\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"status\": \"BORROWED\"\n}"
+				}
+			]
+		},
+		{
+			"name": "All Books by Author",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"    pm.test(\"Check if book is returned.\", function () {\r",
+							"        pm.expect(jsonData[0].bookId).not.eql(undefined);\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"headerFamily": "json",
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{authorBaseUrl}}/authors/books/{{authorId}}",
+					"host": [
+						"{{authorBaseUrl}}"
+					],
+					"path": [
+						"authors",
+						"books",
+						"{{authorId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"emailAddress\": \"<string>\",\n  \"bio\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/authors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"authorId\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"emailAddress\": \"<string>\",\n  \"bio\": \"<string>\",\n  \"country\": \"<string>\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Book Catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{bookBaseUrl}}/books",
+					"host": [
+						"{{bookBaseUrl}}"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "[\n  {\n    \"bookId\": \"<long>\",\n    \"isbn\": \"<string>\",\n    \"title\": \"<string>\",\n    \"edition\": \"<string>\",\n    \"category\": \"<string>\",\n    \"firstPublished\": \"<date>\",\n    \"lastEditionDate\": \"<date>\",\n    \"authorIds\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"status\": \"BORROWED\"\n  },\n  {\n    \"bookId\": \"<long>\",\n    \"isbn\": \"<string>\",\n    \"title\": \"<string>\",\n    \"edition\": \"<string>\",\n    \"category\": \"<string>\",\n    \"firstPublished\": \"<date>\",\n    \"lastEditionDate\": \"<date>\",\n    \"authorIds\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"status\": \"AVAILABLE\"\n  }\n]"
+				}
+			]
+		},
+		{
+			"name": "Borrow Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Check if book created.\", function () {\r",
+							"        pm.collectionVariables.set(\"bookId\",jsonData[0].bookId);\r",
+							"        pm.expect(jsonData[0].bookId).not.eql(undefined);\r",
+							"    });\r",
+							"\r",
+							"    \r",
+							"    pm.test(\"Check if book title returned.\", function () {\r",
+							"        var jsonData = pm.response.json();\r",
+							"        pm.expect(jsonData[0].title).not.eql(undefined);\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bookIds\": [\n    {{bookId}}\n  ],\n  \"userId\": \"{{userId}}\"\n}",
+					"options": {
+						"raw": {
+							"headerFamily": "json",
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bookBaseUrl}}/books/borrow",
+					"host": [
+						"{{bookBaseUrl}}"
+					],
+					"path": [
+						"books",
+						"borrow"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bookId\": \"<long>\",\n  \"isbn\": \"<string>\",\n  \"title\": \"<string>\",\n  \"edition\": \"<string>\",\n  \"category\": \"<string>\",\n  \"firstPublished\": \"<date>\",\n  \"lastEditionDate\": \"<date>\",\n  \"authorIds\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"status\": \"BORROWED\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"bookId\": \"<long>\",\n  \"isbn\": \"<string>\",\n  \"title\": \"<string>\",\n  \"edition\": \"<string>\",\n  \"category\": \"<string>\",\n  \"firstPublished\": \"<date>\",\n  \"lastEditionDate\": \"<date>\",\n  \"authorIds\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"status\": \"BORROWED\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Book Catalog after Borrow",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{bookBaseUrl}}/books",
+					"host": [
+						"{{bookBaseUrl}}"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "[\n  {\n    \"bookId\": \"<long>\",\n    \"isbn\": \"<string>\",\n    \"title\": \"<string>\",\n    \"edition\": \"<string>\",\n    \"category\": \"<string>\",\n    \"firstPublished\": \"<date>\",\n    \"lastEditionDate\": \"<date>\",\n    \"authorIds\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"status\": \"BORROWED\"\n  },\n  {\n    \"bookId\": \"<long>\",\n    \"isbn\": \"<string>\",\n    \"title\": \"<string>\",\n    \"edition\": \"<string>\",\n    \"category\": \"<string>\",\n    \"firstPublished\": \"<date>\",\n    \"lastEditionDate\": \"<date>\",\n    \"authorIds\": [\n      \"<long>\",\n      \"<long>\"\n    ],\n    \"status\": \"AVAILABLE\"\n  }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get Borrowed Books By User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Check if borrowing record present for user - \"+pm.collectionVariables.get(\"userId\"), function () {\r",
+							"        pm.expect(jsonData[0].borrowingId).not.eql(undefined);\r",
+							"    });\r",
+							"\r",
+							"    \r",
+							"    pm.test(\"Check if borrowing record have book present for user - \"+pm.collectionVariables.get(\"userId\"), function () {\r",
+							"        pm.expect(jsonData[0].books[0].bookId).not.eql(undefined);\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{borrowBaseUrl}}/borrowings/find-by-user/{{userId}}",
+					"host": [
+						"{{borrowBaseUrl}}"
+					],
+					"path": [
+						"borrowings",
+						"find-by-user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/borrowings/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"borrowings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"borrowingId\": \"<long>\",\n  \"bookId\": \"<long>\",\n  \"borrowingDate\": \"<date>\",\n  \"returnDate\": \"<date>\",\n  \"userId\": \"<string>\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Return Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Check if book created.\", function () {\r",
+							"        pm.expect(jsonData[0].bookId).not.eql(undefined);\r",
+							"    });\r",
+							"\r",
+							"    \r",
+							"    pm.test(\"Check if book title returned.\", function () {\r",
+							"        var jsonData = pm.response.json();\r",
+							"        pm.expect(jsonData[0].title).not.eql(undefined);\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bookIds\": [\n    {{bookId}}\n  ],\n  \"userId\": \"{{userId}}\"\n}",
+					"options": {
+						"raw": {
+							"headerFamily": "json",
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bookBaseUrl}}/books/return",
+					"host": [
+						"{{bookBaseUrl}}"
+					],
+					"path": [
+						"books",
+						"return"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bookId\": \"<long>\",\n  \"isbn\": \"<string>\",\n  \"title\": \"<string>\",\n  \"edition\": \"<string>\",\n  \"category\": \"<string>\",\n  \"firstPublished\": \"<date>\",\n  \"lastEditionDate\": \"<date>\",\n  \"authorIds\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"status\": \"BORROWED\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"bookId\": \"<long>\",\n  \"isbn\": \"<string>\",\n  \"title\": \"<string>\",\n  \"edition\": \"<string>\",\n  \"category\": \"<string>\",\n  \"firstPublished\": \"<date>\",\n  \"lastEditionDate\": \"<date>\",\n  \"authorIds\": [\n    \"<long>\",\n    \"<long>\"\n  ],\n  \"status\": \"BORROWED\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Borrowed Books By User Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{borrowBaseUrl}}/borrowings/find-by-user/{{userId}}",
+					"host": [
+						"{{borrowBaseUrl}}"
+					],
+					"path": [
+						"borrowings",
+						"find-by-user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/borrowings/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"borrowings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"borrowingId\": \"<long>\",\n  \"bookId\": \"<long>\",\n  \"borrowingDate\": \"<date>\",\n  \"returnDate\": \"<date>\",\n  \"userId\": \"<string>\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Overdue Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{borrowBaseUrl}}/borrowings/over-due-books",
+					"host": [
+						"{{borrowBaseUrl}}"
+					],
+					"path": [
+						"borrowings",
+						"over-due-books"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/borrowings/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"borrowings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "*/*"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"borrowingId\": \"<long>\",\n  \"bookId\": \"<long>\",\n  \"borrowingDate\": \"<date>\",\n  \"returnDate\": \"<date>\",\n  \"userId\": \"<string>\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authorBaseUrl",
+			"value": "http://localhost:8889",
+			"type": "string"
+		},
+		{
+			"key": "bookBaseUrl",
+			"value": "http://localhost:8890",
+			"type": "string"
+		},
+		{
+			"key": "borrowBaseUrl",
+			"value": "http://localhost:8891",
+			"type": "string"
+		},
+		{
+			"key": "authorId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "bookId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "testuser",
+			"type": "string"
+		},
+		{
+			"key": "borrowingRecordId",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}
