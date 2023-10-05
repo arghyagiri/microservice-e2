@@ -115,7 +115,7 @@ GET ```http://localhost:8090/agg-service/customer-orders/{customerId}```
 
 ### Swagger UI
 
-http://localhost:<port>/swagger-ui/index.html
+http://localhost:{port}/swagger-ui/index.html
 port is bound dynamically for all services other than gateway and discovery services.
 * 8762 is the port for discovery service
 * 8090 is the port for api gateway service
