@@ -1,22 +1,20 @@
-# E-Commerce Services Aggregator Pattern
+# E-Commerce Microservices - Declarative Programming - Spring OpenFeign
 
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 [Spring Boot](http://projects.spring.io/spring-boot/) based apps.
 
 ## Architecture Overview
-### Discovery Service
+### ```Discovery Service```
 * Service registry
-### API Gateway Service: 
+### ```API Gateway Service: ```
 * Entry point for client requests. It routes the client requests to appropriate microservices.
-### Aggregator Service: 
-* A service that talks to other microservices and combines the data.
-### Customer Service: 
-* Manages customer data.
-### Product Service: 
-* Manages product data.
-### Order Service: 
-* Manages order data.
+### ```User Service: ```
+* Manages user profiles
+### ```Product Service: ```
+* Handles CRUD operations for products.
+### ```Order Service: ```
+* Handles CRUD operations for orders. Depends on the ```Product Service``` to verify product availability.
 
 ## Requirements
 
@@ -36,17 +34,14 @@ in the below classes from your IDE.
 `com.tcs.training.apigateway.APIGatewayService`
 [link](./api-gateway-service/src/main/java/com/tcs/training/apigateway/APIGatewayService.java)
 
-`com.tcs.training.customer.CustomerApplication`
-[link](./customer-service/src/main/java/com/tcs/training/customer/CustomerApplication.java)
+`com.tcs.training.user.UserApplication`
+[link](./user-service/src/main/java/com/tcs/training/user/UserApplication.java)
 
 `com.tcs.training.product.ProductApplication`
 [link](./product-service/src/main/java/com/tcs/training/product/ProductApplication.java)
 
 `com.tcs.training.order.OrderApplication`
 [link](./order-service/src/main/java/com/tcs/training/order/OrderApplication.java)
-
-`com.tcs.training.aggregator.AggregatorApplication`
-[link](./aggregator-service/src/main/java/com/tcs/training/aggregator/AggregatorApplication.java)
 
 Alternatively you can use
 the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html)
@@ -69,25 +64,38 @@ http://localhost:8762
 ![img.png](img.png)
 
 ### Create a Customer
-POST ```http://localhost:8090/customers```
+POST ```http://localhost:8090/users```
 * Sample Request Body:
 ```json{
-"firstName": "Alysha",
-"lastName": "Dickinson",
-"emailAddress": "Natasha47@yahoo.com"
+  "firstName": "Eriberto",
+  "lastName": "Wiegand",
+  "emailAddress": "Evan.Stehr@yahoo.com",
+  "address": "737 Jenkins Village",
+  "contactNumber": "321-317-5385"
 }
 ```
 
+* Sample Response Body:
+```json{
+  "userId": 3,
+  "firstName": "Eriberto",
+  "lastName": "Wiegand",
+  "emailAddress": "Evan.Stehr@yahoo.com",
+  "address": "737 Jenkins Village",
+  "contactNumber": "321-317-5385"
+}
+```
 ### Create a Product
 POST ```http://localhost:8090/products```
 * Sample Request Body:
 ```json
 {
-"productDescription": "Unbranded Wooden Mouse",
-"seller": "Pants",
-"reviewRating": ,
-"price": 10.11,
-"createDate": "2023-10-04"
+  "productDescription": "Incredible Wooden Gloves",
+  "seller": "Ball",
+  "reviewRating": 2.5,
+  "price": 440.80,
+  "createDate": "2023-10-04",
+  "quantity": 15
 }
 ```
 
@@ -96,22 +104,45 @@ POST ```http://localhost:8090/orders```
 * Sample Request Body:
 ```json
 {
-"customerId": 1,
+"userId": 1,
 "productIds": [
 1,2,3,4
 ]
 }
 ```
 
+* Sample Response Body for 404 Error from User Service:
+```json
+{
+  "title": "No Data Found",
+  "status": 404,
+  "detail": "[order-service] >> [user-service] >> No User found with id : 10000000",
+  "instance": "/orders"
+}
+```
 
-### Get aggregated data by Order Id
-GET ```http://localhost:8090/agg-service/order/{orderId}```
+* Sample Response Body for 404 Error from Product Service:
+```json
+{
+  "title": "No Data Found",
+  "status": 404,
+  "detail": "[order-service] >> [product-service] >> Requested products not available.",
+  "instance": "/orders"
+}
+```
 
+### Get User Profile
+GET ```http://localhost:8090/users/{userId}```
 
-### Get aggregated data by Customer Id
-GET ```http://localhost:8090/agg-service/customer-orders/{customerId}```
-
-
+* Sample Response Body:
+```json{
+  "userId": 3,
+  "firstName": "Eriberto",
+  "lastName": "Wiegand",
+  "emailAddress": "Evan.Stehr@yahoo.com",
+  "address": "737 Jenkins Village",
+  "contactNumber": "321-317-5385"
+}
 
 ### Swagger UI
 
@@ -125,12 +156,11 @@ http://localhost:8762
 
 ## API Test Scripts
 Postman API test scripts can be found below.
-[link](./postman-tests/E-Commerce-Aggregation-Pattern-Tests.postman_collection.json)
-
+[link](./postman-tests/E-Commerce-Microservices%20-%20Declarative%20Programming%20-%20Spring%20OpenFeign.postman_collection.json)
 ![img_1.png](img_1.png)
 
-### Output from Aggregator service aggregating customer, order and product services
-![img_2.png](img_2.png)
+### Output from User service to get customer, order and product services
+
 
 ## Copyright
 
