@@ -56,9 +56,9 @@ like so:
 mvn spring-boot:run
 ```
 
-## Local Application Urls
+## Local Application URLs
 
-### Base Url(API GATEWAY URL)
+### Base URL(API GATEWAY URL)
 
 http://localhost:8090
 
