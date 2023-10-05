@@ -129,6 +129,8 @@ Postman API test scripts can be found below.
 
 ![img_1.png](img_1.png)
 
+### Output from Aggregator service aggregating customer, order and product services
+![img_2.png](img_2.png)
 
 ## Copyright
 
