@@ -1,4 +1,4 @@
-package com.tcs.training.order.config;
+package com.tcs.training.customer.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

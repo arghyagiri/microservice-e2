@@ -1,4 +1,4 @@
-package com.tcs.training.order.entity;
+package com.tcs.training.customer.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

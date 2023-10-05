@@ -1,8 +1,8 @@
-package com.tcs.training.order.controller;
+package com.tcs.training.customer.controller;
 
-import com.tcs.training.order.entity.Customer;
-import com.tcs.training.order.model.exception.CustomerDTO;
-import com.tcs.training.order.service.CustomerService;
+import com.tcs.training.customer.entity.Customer;
+import com.tcs.training.customer.model.exception.CustomerDTO;
+import com.tcs.training.customer.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;

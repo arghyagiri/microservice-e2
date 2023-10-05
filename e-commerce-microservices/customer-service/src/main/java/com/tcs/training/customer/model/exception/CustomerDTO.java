@@ -1,4 +1,4 @@
-package com.tcs.training.order.model.exception;
+package com.tcs.training.customer.model.exception;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

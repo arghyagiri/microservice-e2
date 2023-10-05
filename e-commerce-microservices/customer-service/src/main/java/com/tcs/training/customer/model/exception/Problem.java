@@ -1,4 +1,4 @@
-package com.tcs.training.order.model.exception;
+package com.tcs.training.customer.model.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
-package com.tcs.training.order.service;
+package com.tcs.training.customer.service;
 
-import com.tcs.training.order.entity.Customer;
-import com.tcs.training.order.repository.CustomerRepository;
+import com.tcs.training.customer.entity.Customer;
+import com.tcs.training.customer.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

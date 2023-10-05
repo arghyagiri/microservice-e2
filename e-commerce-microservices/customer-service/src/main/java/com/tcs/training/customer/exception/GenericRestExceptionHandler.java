@@ -1,6 +1,6 @@
-package com.tcs.training.order.exception;
+package com.tcs.training.customer.exception;
 
-import com.tcs.training.order.model.exception.Problem;
+import com.tcs.training.customer.model.exception.Problem;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;

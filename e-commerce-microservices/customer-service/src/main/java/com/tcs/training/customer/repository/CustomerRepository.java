@@ -1,6 +1,6 @@
-package com.tcs.training.order.repository;
+package com.tcs.training.customer.repository;
 
-import com.tcs.training.order.entity.Customer;
+import com.tcs.training.customer.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {

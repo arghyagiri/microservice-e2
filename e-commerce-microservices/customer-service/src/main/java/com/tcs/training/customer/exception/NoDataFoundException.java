@@ -1,4 +1,4 @@
-package com.tcs.training.order.exception;
+package com.tcs.training.customer.exception;
 
 public class NoDataFoundException extends RuntimeException {
 

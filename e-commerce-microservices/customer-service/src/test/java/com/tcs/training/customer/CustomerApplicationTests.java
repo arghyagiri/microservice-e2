@@ -1,4 +1,4 @@
-package com.tcs.training.order;
+package com.tcs.training.customer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
