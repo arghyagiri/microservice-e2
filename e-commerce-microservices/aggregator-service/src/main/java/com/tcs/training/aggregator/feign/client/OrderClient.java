@@ -13,8 +13,8 @@ import java.util.List;
 @FeignClient(name = "${feign.orderClient.name}", configuration = FeignClientErrorDecoder.class, path = "/orders")
 public interface OrderClient {
 
-    @RequestMapping(value = "/{OrderId}")
-    OrderDTO getOrder(@PathVariable("OrderId") Long OrderId);
+    @RequestMapping(value = "/{orderId}")
+    OrderDTO getOrder(@PathVariable("orderId") Long orderId);
 
     @GetMapping(value = "/get-by-customer-id")
     List<OrderDTO> getOrders(@RequestParam("id") Long id);
