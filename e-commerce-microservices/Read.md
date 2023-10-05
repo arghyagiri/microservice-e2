@@ -68,6 +68,51 @@ http://localhost:8762
 
 ![img.png](img.png)
 
+### Create a Customer
+POST ```http://localhost:8090/customers```
+* Sample Request Body:
+```json{
+"firstName": "Alysha",
+"lastName": "Dickinson",
+"emailAddress": "Natasha47@yahoo.com"
+}
+```
+
+### Create a Product
+POST ```http://localhost:8090/products```
+* Sample Request Body:
+```json
+{
+"productDescription": "Unbranded Wooden Mouse",
+"seller": "Pants",
+"reviewRating": ,
+"price": 10.11,
+"createDate": "2023-10-04"
+}
+```
+
+### Create an Order
+POST ```http://localhost:8090/orders```
+* Sample Request Body:
+```json
+{
+"customerId": 1,
+"productIds": [
+1,2,3,4
+]
+}
+```
+
+
+### Get aggregated data by Order Id
+GET ```http://localhost:8090/agg-service/order/{orderId}```
+
+
+### Get aggregated data by Customer Id
+GET ```http://localhost:8090/agg-service/customer-orders/{customerId}```
+
+
+
 ### Swagger UI
 
 http://localhost:<port>/swagger-ui/index.html
