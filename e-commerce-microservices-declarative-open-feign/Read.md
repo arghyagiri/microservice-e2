@@ -143,7 +143,7 @@ GET ```http://localhost:8090/users/{userId}```
   "address": "737 Jenkins Village",
   "contactNumber": "321-317-5385"
 }
-
+```
 ### Swagger UI
 
 http://localhost:{port}/swagger-ui/index.html
