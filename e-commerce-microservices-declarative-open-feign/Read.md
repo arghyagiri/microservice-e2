@@ -159,8 +159,6 @@ Postman API test scripts can be found below.
 [link](./postman-tests/E-Commerce-Microservices%20-%20Declarative%20Programming%20-%20Spring%20OpenFeign.postman_collection.json)
 ![img_1.png](img_1.png)
 
-### Output from User service to get customer, order and product services
-
 
 ## Copyright
 
