@@ -1,16 +1,12 @@
-# E-Commerce Microservices - Declarative Programming - Spring OpenFeign
+# E-Commerce Microservices - Spring Microservices - Proxy Pattern
 
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 [Spring Boot](http://projects.spring.io/spring-boot/) based apps.
 
 ## Architecture Overview
-### ```Discovery Service```
-* Service registry
-### ```API Gateway Service: ```
-* Entry point for client requests. It routes the client requests to appropriate microservices.
-### ```User Service: ```
-* Manages user profiles
+### ```Inventory Service: ```
+* Manages inventory
 ### ```Product Service: ```
 * Handles CRUD operations for products.
 ### ```Order Service: ```
@@ -28,14 +24,8 @@ For building and running the application you need:
 There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method
 in the below classes from your IDE.
 
-`com.tcs.training.discovery.DiscoveryService`
-[link](./discovery-service/src/main/java/com/tcs/training/discovery/DiscoveryService.java)
-
-`com.tcs.training.apigateway.APIGatewayService`
-[link](./api-gateway-service/src/main/java/com/tcs/training/apigateway/APIGatewayService.java)
-
 `com.tcs.training.user.UserApplication`
-[link](./user-service/src/main/java/com/tcs/training/user/UserApplication.java)
+[link](./inventory-service/src/main/java/com/tcs/training/inventory/InventoryApplication.java)
 
 `com.tcs.training.product.ProductApplication`
 [link](./product-service/src/main/java/com/tcs/training/product/ProductApplication.java)
@@ -53,111 +43,23 @@ mvn spring-boot:run
 
 ## Local Application URLs
 
-### Base URL(API GATEWAY URL)
+localhost:8081 - Product
+localhost:8082 - Inventory
+localhost:8083 - Order
 
-http://localhost:8090
-
-### Service Discovery URL
-
-http://localhost:8762
-
-![img.png](img.png)
-
-### Create a Customer
-POST ```http://localhost:8090/users```
-* Sample Request Body:
-```json{
-  "firstName": "Eriberto",
-  "lastName": "Wiegand",
-  "emailAddress": "Evan.Stehr@yahoo.com",
-  "address": "737 Jenkins Village",
-  "contactNumber": "321-317-5385"
-}
-```
-
-* Sample Response Body:
-```json{
-  "userId": 3,
-  "firstName": "Eriberto",
-  "lastName": "Wiegand",
-  "emailAddress": "Evan.Stehr@yahoo.com",
-  "address": "737 Jenkins Village",
-  "contactNumber": "321-317-5385"
-}
-```
-### Create a Product
-POST ```http://localhost:8090/products```
-* Sample Request Body:
-```json
-{
-  "productDescription": "Incredible Wooden Gloves",
-  "seller": "Ball",
-  "reviewRating": 2.5,
-  "price": 440.80,
-  "createDate": "2023-10-04",
-  "quantity": 15
-}
-```
-
-### Create an Order
-POST ```http://localhost:8090/orders```
-* Sample Request Body:
-```json
-{
-"userId": 1,
-"productIds": [
-1,2,3,4
-]
-}
-```
-
-* Sample Response Body for 404 Error from User Service:
-```json
-{
-  "title": "No Data Found",
-  "status": 404,
-  "detail": "[order-service] >> [user-service] >> No User found with id : 10000000",
-  "instance": "/orders"
-}
-```
-
-* Sample Response Body for 404 Error from Product Service:
-```json
-{
-  "title": "No Data Found",
-  "status": 404,
-  "detail": "[order-service] >> [product-service] >> Requested products not available.",
-  "instance": "/orders"
-}
-```
-
-### Get User Profile
-GET ```http://localhost:8090/users/{userId}```
-
-* Sample Response Body:
-```json{
-  "userId": 3,
-  "firstName": "Eriberto",
-  "lastName": "Wiegand",
-  "emailAddress": "Evan.Stehr@yahoo.com",
-  "address": "737 Jenkins Village",
-  "contactNumber": "321-317-5385"
-}
-```
 ### Swagger UI
 
 http://localhost:{port}/swagger-ui/index.html
-port is bound dynamically for all services other than gateway and discovery services.
-* 8762 is the port for discovery service
-* 8090 is the port for api gateway service
-* port of other services can be found from discovery service home page.
-http://localhost:8762
+* 8081 is the port for Product service
+* 8082 is the port for Inventory service
+* 8083 is the port for Order Service
 
 
 ## API Test Scripts
 Postman API test scripts can be found below.
-[link](./postman-tests/E-Commerce-Microservices%20-%20Declarative%20Programming%20-%20Spring%20OpenFeign.postman_collection.json)
-![img_1.png](img_1.png)
+[link](./postman-tests/E-Commerce-Microservices - Proxy Pattern.postman_collection.json
+
+![img_2.png](img_2.png)
 
 
 ## Copyright

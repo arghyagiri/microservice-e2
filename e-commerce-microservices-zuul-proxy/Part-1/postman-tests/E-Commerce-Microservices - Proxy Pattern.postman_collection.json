@@ -179,8 +179,8 @@
 							"\r",
 							"var jsonData = pm.response.json();\r",
 							"\r",
-							"    pm.test(\"Check if product created.\", function () {\r",
-							"        pm.expect(jsonData.productId).not.eql(undefined);\r",
+							"    pm.test(\"Check if order created.\", function () {\r",
+							"        pm.expect(jsonData.products[0].productId).not.eql(undefined);\r",
 							"    });"
 						],
 						"type": "text/javascript"
