@@ -2,7 +2,6 @@ package com.tcs.training.order.service;
 
 import com.tcs.training.order.model.InventoryDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 

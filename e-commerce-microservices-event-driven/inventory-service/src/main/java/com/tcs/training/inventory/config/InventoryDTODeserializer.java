@@ -1,7 +1,6 @@
 package com.tcs.training.inventory.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tcs.training.inventory.model.exception.InventoryDTO;
 import com.tcs.training.inventory.model.exception.InventoryUpdateDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SerializationException;

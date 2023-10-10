@@ -22,7 +22,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: my-group-id
+      group-id: inventory-update
 
 server:
   port: 8083

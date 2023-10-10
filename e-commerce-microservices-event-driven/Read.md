@@ -1,4 +1,4 @@
-# E-Commerce Microservices - Spring Microservices - Proxy Pattern
+# E-Commerce Microservices - Event Driven Architecture
 
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
@@ -11,6 +11,8 @@
 * Handles CRUD operations for products.
 ### ```Order Service: ```
 * Handles CRUD operations for orders. Depends on the ```Product Service``` to verify product availability.
+* Order service uses ```Kafka Message Broker``` to send update to inventory service when an order is placed.
+
 
 ## Requirements
 

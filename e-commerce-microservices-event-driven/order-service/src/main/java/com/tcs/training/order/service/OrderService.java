@@ -11,7 +11,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,28 +51,26 @@ public class OrderService {
 		RestTemplate restTemplate = new RestTemplate();
 
 		log.info("OrderRequest :: {}", order);
-
-		messageProducer.sendMessage("test",InventoryDTO.builder()
+		InventoryDTO inventoryDTO = InventoryDTO.builder()
 				.postCode(order.getPostCode())
 				.products(order.getProducts()
-						.stream()
-						.map(v -> ProductDTO.builder().productId(v.getProductId()).quantity(v.getQuantity()).build())
-						.collect(Collectors.toSet()))
-				.build());
+								.stream()
+								.map(v -> ProductDTO.builder().productId(v.getProductId()).quantity(v.getQuantity()).build())
+								.collect(Collectors.toSet())).build();
+		messageProducer.sendMessage("inventory-service",inventoryDTO);
 
 
-/*		OrderResponse orderResponse = mapper.mapOrderAndProductToResponse(
+		OrderResponse orderResponse = mapper.mapOrderAndProductToResponse(
 				orderRepository.save(mapper.mapDTOToEntity(order)), productProxyService.getProduct(order));
 		orderResponse.getProducts().stream().forEach(p -> {
-			InventoryDTO inventoryDTO = updateInventory.getBody();
 			p.setAvailableQuantity(inventoryDTO.getProducts()
 				.stream()
 				.filter(ip -> ip.getProductId().equals(p.getProductId()))
 				.findFirst()
 				.get()
 				.getAvailableQuantity());
-		});*/
-		return OrderResponse.builder().build();
+		});
+		return orderResponse;
 	}
 
 	@Transactional

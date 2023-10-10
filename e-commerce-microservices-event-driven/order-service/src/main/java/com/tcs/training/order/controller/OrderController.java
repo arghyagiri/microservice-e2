@@ -2,7 +2,6 @@ package com.tcs.training.order.controller;
 
 import com.tcs.training.order.model.OrderRequest;
 import com.tcs.training.order.model.OrderResponse;
-import com.tcs.training.order.service.MessageProducer;
 import com.tcs.training.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
