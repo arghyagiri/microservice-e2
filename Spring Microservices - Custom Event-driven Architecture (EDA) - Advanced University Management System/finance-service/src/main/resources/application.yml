@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: finance-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/MySQL80?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate.ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: usm
+  jackson:
+    default-property-inclusion: non_empty
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: inventory-update
+
+server:
+  port: 8083
+  servlet:
+    context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+
+springdoc:
+  packagesToScan: com.tcs.training
+
+logging:
+  level:
+    .: INFO
+

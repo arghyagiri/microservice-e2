@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: inventory-service
+  datasource:
+    url: jdbc:h2:mem:customerdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: create-drop
+    show-sql: true
+      #defer-datasource-initialization: true
+      #sql:
+    #init:
+    #mode: always
+  h2:
+    console:
+      enabled: true
+  jackson:
+    default-property-inclusion: non_empty
+  kafka:
+    consumer:
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties.spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+
+
+server:
+  port: 8082
+  servlet:
+    context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+
+springdoc:
+  packagesToScan: com.tcs.training
+
+logging:
+  level:
+    .: INFO
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8762/eureka}
+    registerWithEureka: true
+    fetchRegistry: true
+  instance:
+    preferIpAddress: false
