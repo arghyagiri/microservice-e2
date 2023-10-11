@@ -53,8 +53,8 @@ Columns: ```event_id```, ```event_type```, ```event_data```, ```status```, ```se
 
 ## Local Application URLs
 
-localhost:8081 - Student
-localhost:8083 - Finance
+* localhost:8081 - Student
+* localhost:8083 - Finance
 
 ### Swagger UI
 
