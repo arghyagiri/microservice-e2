@@ -65,7 +65,7 @@ http://localhost:{port}/swagger-ui/index.html
 
 ## API Test Scripts
 Postman API test scripts can be found below.
-[link](./postman-tests/EDA - Architecture Shared Queue.postman_collection.json
+[link](./postman-tests/EDA - Architecture Shared Queue.postman_collection.json)
 
 
 ### Database polling from Finance Service to process event queue.
