@@ -2,29 +2,37 @@ spring:
   application:
     name: student-service
   datasource:
-    url: jdbc:h2:mem:productdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
-    username: admin
-    password: admin
+    own:
+      poolName: localDB
+      jdbc-url: jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      driverClassName: org.h2.Driver
+      username: admin
+      password: admin
+      hikari:
+        connectionTimeout: 60000
+        idleTimeout: 180000
+    shared:
+      poolName: sharedDb
+      jdbc-url: jdbc:mysql://localhost:3306/ums?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      driverClassName: com.mysql.cj.jdbc.Driver
+      username: root
+      password: admin
+      hikari:
+        connectionTimeout: 60000
+        idleTimeout: 180000
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    hibernate.ddl-auto: create-drop
+    hibernate.ddl-auto: none
     show-sql: true
-      #defer-datasource-initialization: true
-      #sql:
-    #init:
-    #mode: always
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
   h2:
     console:
       enabled: true
   jackson:
     default-property-inclusion: non_empty
-  cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
-    openfeign:
-      lazy-attributes-resolution: true
 
 server:
   port: 8081
@@ -45,3 +53,6 @@ logging:
   level:
     .: INFO
 
+event:
+  queue:
+    polling-interval: 5000

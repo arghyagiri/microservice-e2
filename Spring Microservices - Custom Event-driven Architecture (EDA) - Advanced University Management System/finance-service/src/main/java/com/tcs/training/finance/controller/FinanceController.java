@@ -1,7 +1,7 @@
 package com.tcs.training.finance.controller;
 
 import com.tcs.training.finance.service.FinanceEventProcessorService;
-import com.tcs.traning.shared.event.model.Event;
+import com.tcs.training.shared.event.entity.Event;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,9 +15,9 @@ public class FinanceController {
 
 	private final FinanceEventProcessorService financeEventProcessorService;
 
-	@PostMapping("/process")
+	@PostMapping("/publish")
 	public void publish(@RequestBody Event event) {
-		financeEventProcessorService.process();
+		financeEventProcessorService.publish(event);
 	}
 
 }

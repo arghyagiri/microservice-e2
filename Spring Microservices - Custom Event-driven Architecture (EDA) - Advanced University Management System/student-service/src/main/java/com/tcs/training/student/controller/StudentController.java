@@ -1,52 +1,45 @@
 package com.tcs.training.student.controller;
 
-import com.tcs.training.student.entity.Product;
-import com.tcs.training.student.model.ProductDTO;
-import com.tcs.training.student.service.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tcs.training.shared.event.entity.Event;
+import com.tcs.training.shared.event.impl.DatabaseEventQueue;
+import com.tcs.training.shared.event.model.Status;
+import com.tcs.training.student.config.datasource.ClientDatabase;
+import com.tcs.training.student.config.datasource.ClientDatabaseContextHolder;
+import com.tcs.training.student.entity.Student;
+import com.tcs.training.student.service.StudentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Set;
-
 @RestController
-@RequestMapping("products")
+@RequestMapping("students")
 @RequiredArgsConstructor
+@Slf4j
 public class StudentController {
 
-	private final ProductService productService;
+	private final StudentService studentService;
+	private final DatabaseEventQueue databaseEventQueue;
 
-	@GetMapping
-	public List<Product> getAll() {
-		return productService.getAll();
-	}
+	@PostMapping("/register")
+	public ResponseEntity<Student> add(@RequestBody Student student) throws JsonProcessingException {
 
-	@GetMapping(value = "/{id}")
-	public Product getById(@PathVariable("id") Long id) {
-		return productService.getById(id);
-	}
+		student.setStudentId(null);
+		student = studentService.add(student);
 
-	@GetMapping(value = "/get-by-ids")
-	public List<Product> getByIds(@RequestParam("id") Set<Long> ids) {
-		return productService.getByIds(ids);
-	}
-
-	@PostMapping()
-	public Product add(@RequestBody ProductDTO author) {
-		Product productEntity = new Product();
-		BeanUtils.copyProperties(author, productEntity);
-		return productService.add(productEntity);
-	}
-
-	@PutMapping()
-	public Product put(@RequestBody Product product) {
-		return productService.put(product);
-	}
-
-	@DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable("id") Long id) {
-		productService.delete(id);
+		ClientDatabaseContextHolder.set(ClientDatabase.SHARED);
+		log.info("Switching 3 : {}", ClientDatabaseContextHolder.getClientDatabase());
+		ObjectMapper objectMapper = new ObjectMapper();
+		Event event = Event.builder().eventData(objectMapper.writeValueAsString(student)).eventType("student-registration").status(Status.NEW).build();
+		event.setServiceName("library-service");
+		databaseEventQueue.publish(event);
+		event.setServiceName("finance-service");
+		databaseEventQueue.publish(event);
+		ClientDatabaseContextHolder.clear();
+		return new ResponseEntity<>(student, HttpStatus.CREATED);
 	}
 
 }

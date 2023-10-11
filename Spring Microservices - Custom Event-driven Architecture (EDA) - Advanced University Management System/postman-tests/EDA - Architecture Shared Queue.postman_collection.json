@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "c64262f1-a3d6-4fc9-b365-45209d51ab34",
+		"name": "EDA - Architecture Shared Queue",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30165012"
+	},
+	"item": [
+		{
+			"name": "Finance Publish",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"eventType\": \"{{$randomJobType}}\",\r\n  \"eventData\": \"{{$randomLoremSentence}}\",\r\n  \"serviceName\": \"finance-service\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/finance/publish",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"finance",
+						"publish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"{{$randomFirstName}} {{$randomLastName}}\",\r\n  \"courseId\": {{$randomInt}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/students/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"students",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
