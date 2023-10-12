@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan("com.tcs.training")
-@EnableJpaRepositories("com.tcs.training")
 @EntityScan("com.tcs.training")
 public class FinanceApplication {
 

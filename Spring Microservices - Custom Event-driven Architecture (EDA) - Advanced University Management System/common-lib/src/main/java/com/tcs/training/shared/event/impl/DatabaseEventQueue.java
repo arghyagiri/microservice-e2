@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Component
@@ -29,8 +30,9 @@ public class DatabaseEventQueue implements EventQueue {
     @Override
     @Transactional
     public Event consume(String serviceName) {
-        Event event = eventQueueRepository.findMyEventQueue(serviceName);
-        if(event != null) {
+        List<Event> eventList = eventQueueRepository.findMyEventQueue(serviceName);
+        if(eventList != null && !eventList.isEmpty()) {
+            Event event = eventList.get(0);
             event.setStatus(Status.IN_PROCESS);
             return mapEventDB(eventQueueRepository.save(event));
         }
@@ -49,6 +51,7 @@ public class DatabaseEventQueue implements EventQueue {
 
     public Event mapEventQueueDB(Event event) {
         return Event.builder()
+                .eventId(event.getEventId())
                 .eventData(event.getEventData())
                 .eventType(event.getEventType()).serviceName(event.getServiceName()).creationDate(LocalDate.now()).build();
     }

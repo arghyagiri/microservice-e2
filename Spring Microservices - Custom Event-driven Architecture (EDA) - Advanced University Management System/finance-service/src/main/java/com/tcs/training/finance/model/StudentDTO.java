@@ -12,26 +12,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductDTO {
+public class StudentDTO {
 
-	Long productId;
+	Long studentId;
 
-	String productDescription;
+	String name;
 
-	String seller;
-
-	Double reviewRating;
-
-	LocalDate createDate;
-
-	String productName;
-
-	String productCategory;
-
-	BigDecimal price;
-
-	Long quantity;
-
-	Long availableQuantity;
+	Long courseId;
 
 }

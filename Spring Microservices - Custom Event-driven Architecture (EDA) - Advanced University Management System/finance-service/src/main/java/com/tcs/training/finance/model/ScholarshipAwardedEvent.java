@@ -5,16 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderRequest {
+public class ScholarshipAwardedEvent {
 
-	private String postCode;
+	Long studentId;
 
-	private Set<ProductDTO> products;
+	BigDecimal scholarshipAmount;
 
 }

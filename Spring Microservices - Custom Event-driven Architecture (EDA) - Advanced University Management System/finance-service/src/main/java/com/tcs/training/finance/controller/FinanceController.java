@@ -1,5 +1,7 @@
 package com.tcs.training.finance.controller;
 
+import com.tcs.training.finance.entity.Tuition;
+import com.tcs.training.finance.repository.TuitionRepository;
 import com.tcs.training.finance.service.FinanceEventProcessorService;
 import com.tcs.training.shared.event.entity.Event;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +17,17 @@ public class FinanceController {
 
 	private final FinanceEventProcessorService financeEventProcessorService;
 
+	private final TuitionRepository tuitionRepository;
+
 	@PostMapping("/publish")
 	public void publish(@RequestBody Event event) {
 		financeEventProcessorService.publish(event);
+	}
+
+	@PostMapping("/tuition")
+	public Tuition createTuitionRecord(@RequestBody Tuition tuition) {
+		tuition.setTuitionId(null);
+		return tuitionRepository.save(tuition);
 	}
 
 }
