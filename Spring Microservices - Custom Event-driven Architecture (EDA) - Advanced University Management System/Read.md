@@ -70,7 +70,13 @@ Postman API test scripts can be found below.
 
 ### Database polling from Finance Service to process event queue.
 ![img.png](img.png)
+
+
+
 ![img_2.png](img_2.png)
+
+
+![img_4.png](img_4.png)
 
 ## Note: LibraryService is not provided here and can be configured in similar way of FinanceService to process or consumed shared events.
 
