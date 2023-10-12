@@ -37,6 +37,26 @@
 		},
 		{
 			"name": "Register Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Check if student registered.\", function () {\r",
+							"        pm.collectionVariables.set(\"courseId\",jsonData.courseId);\r",
+							"        pm.expect(jsonData.courseId).not.eql(undefined);\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -63,6 +83,68 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Tuition",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"feeAmount\",_.random(500.0, 999.0));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 20\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"courseId\": {{courseId}},\r\n  \"feeAmount\": {{feeAmount}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/finance/tuition",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"finance",
+						"tuition"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "courseId",
+			"value": ""
+		},
+		{
+			"key": "feeAmount",
+			"value": ""
 		}
 	]
 }
