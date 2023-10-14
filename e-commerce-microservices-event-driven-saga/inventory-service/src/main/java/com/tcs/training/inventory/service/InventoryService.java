@@ -2,9 +2,9 @@ package com.tcs.training.inventory.service;
 
 import com.tcs.training.inventory.entity.Inventory;
 import com.tcs.training.inventory.exception.NoDataFoundException;
-import com.tcs.training.inventory.model.exception.InventoryUpdateDTO;
-import com.tcs.training.inventory.model.exception.ProductDTO;
+import com.tcs.training.inventory.model.InventoryDTO;
 import com.tcs.training.inventory.repository.InventoryRepository;
+import com.tcs.training.model.order.Product;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -48,17 +48,14 @@ public class InventoryService {
 		inventoryRepository.deleteById(id);
 	}
 
-	public InventoryUpdateDTO update(InventoryUpdateDTO inventoryDTO) {
-		InventoryUpdateDTO result = InventoryUpdateDTO.builder()
-			.postCode(inventoryDTO.getPostCode())
+	public InventoryDTO update(InventoryDTO inventoryDTO) {
+		InventoryDTO result = InventoryDTO.builder()
 			.products(new HashSet<>())
 			.build();
-		for (ProductDTO productDTO : inventoryDTO.getProducts()) {
-			Inventory existingInventory = inventoryRepository.findByProductIdAndPostCode(productDTO.getProductId(),
-					inventoryDTO.getPostCode());
-			existingInventory.setQuantityAvailable(existingInventory.getQuantityAvailable() - productDTO.getQuantity());
+		for (Product productDTO : inventoryDTO.getProducts()) {
+			Inventory existingInventory = inventoryRepository.findByProductId(productDTO.getProductId());
+			existingInventory.setQuantityAvailable(existingInventory.getQuantityAvailable());
 			inventoryRepository.save(existingInventory);
-			productDTO.setAvailableQuantity(existingInventory.getQuantityAvailable());
 			result.getProducts().add(productDTO);
 		}
 		return result;

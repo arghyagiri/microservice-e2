@@ -2,7 +2,7 @@ spring:
   application:
     name: inventory-service
   datasource:
-    url: jdbc:h2:mem:customerdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:invdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
     username: admin
     password: admin
@@ -19,10 +19,6 @@ spring:
       enabled: true
   jackson:
     default-property-inclusion: non_empty
-  kafka:
-    consumer:
-      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
-      properties.spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
 
 
 server:
@@ -43,13 +39,35 @@ springdoc:
 logging:
   level:
     .: INFO
+    com:
+      tcs:
+        training:
+          inventory:
+            service: DEBUG
+spring.cloud.function.definition: inventoryProcessor;inventoryCheck
+spring.cloud.stream:
+  bindings:
+    inventoryProcessor-in-0.destination: ${spring.application.name}.inventoryProcessor
+    inventoryProcessor-out-0.destination: ${spring.application.name}.inventoryCheck
 
+    inventoryCheck-in-0.destination: ${spring.application.name}.inventoryCheck
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8762/eureka}
-    registerWithEureka: true
-    fetchRegistry: true
-  instance:
-    preferIpAddress: false
+  kafka.streams:
+    bindings:
+      inventoryProcessor-in-0.consumer.configuration.application.id: ${spring.application.name}-inventoryProcessor
+      inventoryCheck-in-0.consumer.configuration.application.id: ${spring.application.name}-inventoryCheck
+    binder:
+      brokers: localhost:9092 # just to use it in the service app, Its already 'localhost:9092' by default
+      auto-add-partitions: true
+      min-partition-count: 1
+      state-store-retry:
+        max-attempts: 3
+        backoff-period: 500
+      configuration:
+        application.id: ${spring.application.name}
+        application.server: localhost:${server.port} # for InteractiveQueryService to describe itself
+        state.dir: state-${spring.application.name}-${server.port} # to give a unique dir name in case you run multiple of this app on the same machine
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$UUIDSerde
+        default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        commit.interval.ms: 1000
+        auto.offset.reset: latest

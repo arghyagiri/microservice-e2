@@ -14,7 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @Table(name = "INVENTORY", uniqueConstraints = {
-		@UniqueConstraint(name = "UC_INVENTORY_WAREHOUSE", columnNames = { "productId", "postCode" }) })
+		@UniqueConstraint(name = "UC_INVENTORY_WAREHOUSE", columnNames = { "productId" }) })
 public class Inventory implements Serializable {
 
 	@Id
@@ -32,6 +32,7 @@ public class Inventory implements Serializable {
 
 	Long productId;
 
-	String postCode;
+	@JoinColumn(name = "productId", referencedColumnName = "productId")
+	Product product;
 
 }

@@ -1,4 +1,4 @@
-package com.tcs.training.order.model;
+package com.tcs.training.inventory.model;
 
 import com.tcs.training.model.order.Product;
 import jakarta.validation.Valid;
@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -16,12 +17,12 @@ import java.util.Set;
 @Builder
 public class InventoryDTO {
 
-	@NotNull
-	@Valid
-	Set<Product> products;
+	private UUID inventoryUuId;
 
 	@NotNull
 	@Valid
-	String postCode;
+	private Set<Product> products;
+
+	private InventoryStatus status;
 
 }

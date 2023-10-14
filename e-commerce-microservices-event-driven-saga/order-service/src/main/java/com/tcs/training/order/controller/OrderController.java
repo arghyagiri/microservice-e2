@@ -1,17 +1,15 @@
 package com.tcs.training.order.controller;
 
-import com.tcs.training.order.model.OrderRequest;
-import com.tcs.training.order.model.OrderResponse;
+import com.tcs.training.model.order.Order;
+import com.tcs.training.model.order.OrderStatus;
+import com.tcs.training.order.entity.OrderEntity;
+import com.tcs.training.order.repository.OrderRepository;
 import com.tcs.training.order.service.OrderService;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("orders")
@@ -20,37 +18,21 @@ public class OrderController {
 
 	private final OrderService orderService;
 
-	@GetMapping()
-	public List<OrderResponse> getAll(@RequestParam("page") Optional<Integer> page,
-			@RequestParam("size") Optional<Integer> size) {
-		Pageable pageRequest = PageRequest.of(page.orElse(0), size.orElse(10), Sort.unsorted());
-		return orderService.getAll(pageRequest);
+	private final OrderRepository orderRepository;
+
+	@PostMapping("")
+	public Order placeOrder(@RequestBody @NotNull(message = "Invalid Order") Order order) {
+		return orderService.placeOrder().apply(order);
 	}
 
-	@GetMapping(value = "/{id}")
-	public OrderResponse getById(@PathVariable("id") Long id) {
-		return orderService.getByOrderId(id);
+	@GetMapping("/status/{orderUuid}")
+	public OrderStatus statusCheck(@PathVariable("orderUuid") UUID orderUuid) {
+		return null;
 	}
 
-	@GetMapping(value = "/get-by-ids")
-	public List<OrderResponse> getByIds(@RequestParam("id") Set<Long> ids) {
-		return orderService.getByOrderIds(ids);
+	@GetMapping("/{id}")
+	public OrderEntity getOrderById(@PathVariable("id") UUID orderId) {
+		return orderRepository.getReferenceById(orderId);
 	}
-
-	@PostMapping()
-	public OrderResponse placeOrder(@RequestBody OrderRequest order) {
-		return orderService.placeOrder(order);
-	}
-
-	@PutMapping()
-	public OrderResponse put(@RequestBody OrderRequest order) {
-		return orderService.placeOrder(order);
-	}
-
-	@DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable("id") Long id) {
-		orderService.deleteRecords(id);
-	}
-
 
 }

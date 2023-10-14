@@ -11,7 +11,7 @@ spring:
     hibernate.ddl-auto: create-drop
     show-sql: true
       #defer-datasource-initialization: true
-      #sql:
+    #sql:
     #init:
     #mode: always
   h2:
@@ -19,11 +19,6 @@ spring:
       enabled: true
   jackson:
     default-property-inclusion: non_empty
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: inventory-update
-
 server:
   port: 8083
   servlet:
@@ -42,4 +37,38 @@ springdoc:
 logging:
   level:
     .: INFO
+    com:
+      tcs:
+        training:
+          order:
+            service: DEBUG
 
+spring.cloud.function.definition: processOrder;inventoryCheck
+spring.cloud.stream:
+  bindings:
+    processOrder-in-0.destination: ${spring.application.name}.processOrder
+    processOrder-out-0.destination: ${spring.application.name}.inventoryCheck
+
+    inventoryCheck-in-0.destination: ${spring.application.name}.inventoryCheck
+    inventoryCheck-out-0.destination: inventory-service.inventoryProcessor
+
+  kafka.streams:
+    bindings:
+      processOrder-in-0.consumer.configuration.application.id: ${spring.application.name}-processOrder
+      inventoryCheck-in-0.consumer.configuration.application.id: ${spring.application.name}-inventoryCheck
+      #inventoryProcessor-in-0.consumer.configuration.application.id: inventory-service-inventoryProcessor
+    binder:
+      brokers: localhost:9092 # just to use it in the service app, Its already 'localhost:9092' by default
+      auto-add-partitions: true
+      min-partition-count: 1
+      state-store-retry:
+        max-attempts: 3
+        backoff-period: 500
+      configuration:
+        application.id: ${spring.application.name}
+        application.server: localhost:${server.port} # for InteractiveQueryService to describe itself
+        state.dir: state-${spring.application.name}-${server.port} # to give a unique dir name in case you run multiple of this app on the same machine
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$UUIDSerde
+        default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        commit.interval.ms: 1000
+        auto.offset.reset: latest

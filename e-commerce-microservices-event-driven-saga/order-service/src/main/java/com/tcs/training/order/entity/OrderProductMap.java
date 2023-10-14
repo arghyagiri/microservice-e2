@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -23,6 +24,6 @@ public class OrderProductMap implements Serializable {
 
 	Long productId;
 
-	Long orderId;
+	UUID orderId;
 
 }

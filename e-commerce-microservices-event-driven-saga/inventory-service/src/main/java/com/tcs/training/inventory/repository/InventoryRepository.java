@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
-	Inventory findByProductIdAndPostCode(Long productId, String postCode);
+	Inventory findByProductId(Long productId);
 
 }

@@ -1,8 +1,7 @@
 package com.tcs.training.inventory.controller;
 
 import com.tcs.training.inventory.entity.Inventory;
-import com.tcs.training.inventory.model.exception.InventoryDTO;
-import com.tcs.training.inventory.model.exception.InventoryUpdateDTO;
+import com.tcs.training.inventory.model.InventoryDTO;
 import com.tcs.training.inventory.service.InventoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +51,7 @@ public class InventoryController {
 	}
 
 	@PostMapping("/update")
-	public InventoryUpdateDTO update(@RequestBody InventoryUpdateDTO inventoryDTO) {
+	public InventoryDTO update(@RequestBody InventoryDTO inventoryDTO) {
 		return inventoryService.update(inventoryDTO);
 	}
 

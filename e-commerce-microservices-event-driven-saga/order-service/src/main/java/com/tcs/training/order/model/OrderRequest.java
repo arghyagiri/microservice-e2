@@ -1,5 +1,6 @@
 package com.tcs.training.order.model;
 
+import com.tcs.training.model.order.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,6 @@ public class OrderRequest {
 
 	private String postCode;
 
-	private Set<ProductDTO> products;
+	private Set<Product> products;
 
 }
