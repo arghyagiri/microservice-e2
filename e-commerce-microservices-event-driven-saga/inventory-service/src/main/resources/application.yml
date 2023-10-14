@@ -43,19 +43,24 @@ logging:
       tcs:
         training:
           inventory:
-            service: DEBUG
-spring.cloud.function.definition: inventoryProcessor;inventoryCheck
+            service: INFO
+spring.cloud.function.definition: inventoryProcessor;inventoryCheck;paymentInit
 spring.cloud.stream:
   bindings:
     inventoryProcessor-in-0.destination: ${spring.application.name}.inventoryProcessor
     inventoryProcessor-out-0.destination: ${spring.application.name}.inventoryCheck
 
     inventoryCheck-in-0.destination: ${spring.application.name}.inventoryCheck
+    inventoryCheck-out-0.destination: ${spring.application.name}.paymentInit
+
+    paymentInit-in-0.destination: ${spring.application.name}.paymentInit
+    paymentInit-out-0.destination: payment-service.paymentProcessor
 
   kafka.streams:
     bindings:
       inventoryProcessor-in-0.consumer.configuration.application.id: ${spring.application.name}-inventoryProcessor
       inventoryCheck-in-0.consumer.configuration.application.id: ${spring.application.name}-inventoryCheck
+      paymentInit-in-0.consumer.configuration.application.id: ${spring.application.name}-paymentInit
     binder:
       brokers: localhost:9092 # just to use it in the service app, Its already 'localhost:9092' by default
       auto-add-partitions: true

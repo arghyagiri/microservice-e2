@@ -41,7 +41,7 @@ in the below classes from your IDE.
 `com.tcs.training.user.UserApplication`
 [link](./inventory-service/src/main/java/com/tcs/training/inventory/InventoryApplication.java)
 
-`com.tcs.training.product.ProductApplication`
+`com.tcs.training.product.NotificationApplication`
 [link](./product-service/src/main/java/com/tcs/training/product/ProductApplication.java)
 
 `com.tcs.training.order.OrderApplication`
