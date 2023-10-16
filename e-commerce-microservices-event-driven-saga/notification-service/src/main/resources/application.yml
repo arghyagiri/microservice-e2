@@ -45,7 +45,7 @@ logging:
   level:
     .: INFO
 
-spring.cloud.function.definition: inventoryProcessor
+spring.cloud.function.definition: notificationProcessor
 spring.cloud.stream:
   bindings:
     notificationProcessor-in-0.destination: ${spring.application.name}.notificationProcessor

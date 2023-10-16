@@ -83,6 +83,7 @@ Payment topic containing created order.
 
 Notification Topic containing created order.
 ![img_1.png](img_1.png)
+![img_4.png](img_4.png)
 
 ## Copyright
 
