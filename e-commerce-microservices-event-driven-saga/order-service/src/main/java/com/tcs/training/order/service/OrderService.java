@@ -21,6 +21,7 @@ import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.state.HostInfo;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.binder.kafka.streams.InteractiveQueryService;
 import org.springframework.context.annotation.Bean;
@@ -59,11 +60,9 @@ public class OrderService {
 	public Function<Order, Order> placeOrder() {
 		return orderIn -> {
 			// create an order
-			var order = Order.builder()
-				.orderUuid(UUID.randomUUID())
-				.itemName(orderIn.getItemName())
-				.orderStatus(OrderStatus.PENDING)
-				.build();
+			var order = orderIn;
+			order.setOrderUuid(UUID.randomUUID());
+			order.setOrderStatus(OrderStatus.PENDING);
 			log.info("uuid : {}, order placed.", order.getOrderUuid());
 			// producer
 			new KafkaTemplate(orderJsonSerdeFactoryFunction.apply(orderJsonSerde.serializer(), bootstrapServer), true) {

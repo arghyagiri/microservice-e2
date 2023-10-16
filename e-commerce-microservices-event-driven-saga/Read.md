@@ -8,9 +8,9 @@
 ### ```Inventory Service: ```
 * Manages inventory
 ### ```Product Service: ```
-* Handles CRUD operations for products.
+* Handles CRUD operations for notifications.
 ### ```Order Service: ```
-* Handles CRUD operations for orders. Depends on the ```Product Service``` to verify product availability.
+* Handles CRUD operations for orders. Depends on the ```Product Service``` to verify notification availability.
 ### ```Payment Service: ```
 * Handles CRUD operations for payments.
 ### ```Notification Service: ```
@@ -41,8 +41,8 @@ in the below classes from your IDE.
 `com.tcs.training.user.UserApplication`
 [link](./inventory-service/src/main/java/com/tcs/training/inventory/InventoryApplication.java)
 
-`com.tcs.training.product.NotificationApplication`
-[link](./product-service/src/main/java/com/tcs/training/product/ProductApplication.java)
+`com.tcs.training.notification.NotificationApplication`
+[link](./notification-service/src/main/java/com/tcs/training/notification/ProductApplication.java)
 
 `com.tcs.training.order.OrderApplication`
 [link](./order-service/src/main/java/com/tcs/training/order/OrderApplication.java)
@@ -71,10 +71,18 @@ http://localhost:{port}/swagger-ui/index.html
 
 ## API Test Scripts
 Postman API test scripts can be found below.
-[link](./postman-tests/E-Commerce-Microservices - Proxy Pattern.postman_collection.json
+[link](./postman-tests/E-Commerce-Microservices - Saga Pattern.postman_collection.json)
 
+![img.png](img.png)
+
+Inventory Topic containing created order.
 ![img_2.png](img_2.png)
 
+Payment topic containing created order.
+![img_3.png](img_3.png)
+
+Notification Topic containing created order.
+![img_1.png](img_1.png)
 
 ## Copyright
 

@@ -86,24 +86,24 @@ docker run -d -p 9094:9094 \
 ### Use Docker-compose
 docker-compose.yml
 ```
-   1 version: '2'
-   2 services:
-   3   zookeeper:
-   4     image: wurstmeister/zookeeper
-   5     container_name: zoo
-   6     ports:
-   7       - "2181:2181"
-   8   kafka:
-   9     image: wurstmeister/kafka:2.13-2.7.1
-  10     container_name: kafka
-  11     ports:
-  12       - "9092:9092"
-  13     environment:
-  14       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
-  15       KAFKA_CREATE_TOPICS: "external-out:1:1,external-in:1:1,internal-in:1:1"
-  16       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  17     volumes:
-  18       - /var/run/docker.sock:/var/run/docker.sock
+ version: '2'
+ services:
+   zookeeper:
+     image: wurstmeister/zookeeper
+     container_name: zoo
+     ports:
+         - "2181:2181"
+   kafka:
+     image: wurstmeister/kafka:2.13-2.7.1
+     container_name: kafka
+     ports:
+         - "9092:9092"
+     environment:
+       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+       KAFKA_CREATE_TOPICS: "external-out:1:1,external-in:1:1,internal-in:1:1"
+       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+     volumes:
+         - /var/run/docker.sock:/var/run/docker.sock
 ```
 
 
@@ -128,7 +128,7 @@ docker exec -ti kafka /usr/bin/broker-list.sh
 ## List Topics
 docker exec -ti kafka /opt/kafka/bin/kafka-topics.sh --list --zookeeper zookeeper:2181
 
-## Describe Tipic
+## Describe Topic
 docker exec -ti kafka /opt/kafka/bin/kafka-topics.sh --describe --topic quickstart-events --bootstrap-server localhost:9092
 
 ## Create a Topic

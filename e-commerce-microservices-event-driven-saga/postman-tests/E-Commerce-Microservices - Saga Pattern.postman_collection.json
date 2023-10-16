@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "c8b4ec5a-690e-43aa-ba87-bed7d5b62c60",
-		"name": "E-Commerce-Microservices - Proxy Pattern",
+		"_postman_id": "3dddffc5-86a7-4753-bfd9-cb07317545e9",
+		"name": "E-Commerce-Microservices - Saga Pattern",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30165012"
 	},
@@ -180,6 +180,7 @@
 							"var jsonData = pm.response.json();\r",
 							"\r",
 							"    pm.test(\"Check if order created.\", function () {\r",
+							"        pm.collectionVariables.set(\"referenceId\",jsonData.orderUuid);\r",
 							"        pm.expect(jsonData.products[0].productId).not.eql(undefined);\r",
 							"    });"
 						],
@@ -201,7 +202,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"postCode\": \"{{postCode}}\",\r\n  \"products\": [\r\n    {\r\n      \"productId\": {{productId}},\r\n      \"quantity\": 4\r\n    },\r\n{\r\n      \"productId\": {{productId}},\r\n      \"quantity\": 4\r\n    }\r\n  ]\r\n}",
+					"raw": "{\r\n  \"itemName\": \"Garments - daichiman\",\r\n  \"products\": [\r\n    {\r\n      \"productId\": 4011,\r\n      \"quantity\": 45\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -215,6 +216,61 @@
 					],
 					"path": [
 						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Payment Kafka Bindings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{paymentServiceUrl}}/actuator/bindings",
+					"protocol": "http",
+					"host": [
+						"{{paymentServiceUrl}}"
+					],
+					"path": [
+						"actuator",
+						"bindings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notification By Refence Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{notificationServiceUrl}}/notifications/{{referenceId}}",
+					"host": [
+						"{{notificationServiceUrl}}"
+					],
+					"path": [
+						"notifications",
+						"{{referenceId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Notifications",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{notificationServiceUrl}}/notifications/{{referenceId}}",
+					"host": [
+						"{{notificationServiceUrl}}"
+					],
+					"path": [
+						"notifications",
+						"{{referenceId}}"
 					]
 				}
 			},
@@ -243,13 +299,13 @@
 	],
 	"variable": [
 		{
-			"key": "productServiceUrl",
-			"value": "http://localhost:8081",
+			"key": "paymentServiceUrl",
+			"value": "http://localhost:8083",
 			"type": "string"
 		},
 		{
 			"key": "orderServiceUrl",
-			"value": "http://localhost:8083"
+			"value": "http://localhost:8081"
 		},
 		{
 			"key": "inventoryServiceUrl",
@@ -278,6 +334,15 @@
 		},
 		{
 			"key": "postCode",
+			"value": ""
+		},
+		{
+			"key": "notificationServiceUrl",
+			"value": "http://localhost:8084",
+			"type": "string"
+		},
+		{
+			"key": "referenceId",
 			"value": ""
 		}
 	]
