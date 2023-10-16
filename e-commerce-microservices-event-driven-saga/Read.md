@@ -38,14 +38,18 @@ For building and running the application you need:
 There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method
 in the below classes from your IDE.
 
-`com.tcs.training.user.UserApplication`
+`com.tcs.training.user.InventoryApplication`
 [link](./inventory-service/src/main/java/com/tcs/training/inventory/InventoryApplication.java)
 
 `com.tcs.training.notification.NotificationApplication`
-[link](./notification-service/src/main/java/com/tcs/training/notification/ProductApplication.java)
+[link](./notification-service/src/main/java/com/tcs/training/notification/NotificationApplication.java)
 
 `com.tcs.training.order.OrderApplication`
 [link](./order-service/src/main/java/com/tcs/training/order/OrderApplication.java)
+
+`com.tcs.training.payment.PaymentApplication`
+[link](./payment-service/src/main/java/com/tcs/training/payment/PaymentApplication.java)
+
 
 Alternatively you can use
 the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html)
@@ -57,16 +61,15 @@ mvn spring-boot:run
 
 ## Local Application URLs
 
-localhost:8081 - Product
+localhost:8081 - Order
 localhost:8082 - Inventory
-localhost:8083 - Order
+localhost:8083 - Payment
+localhost:8084 - Notification
 
 ### Swagger UI
 
 http://localhost:{port}/swagger-ui/index.html
-* 8081 is the port for Product service
-* 8082 is the port for Inventory service
-* 8083 is the port for Order Service
+* use above-mentioned ports
 
 
 ## API Test Scripts
