@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: audit-service
+  datasource:
+    url: jdbc:h2:mem:auditDb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: create-drop
+    show-sql: true
+      #defer-datasource-initialization: true
+      #sql:
+    #init:
+    #mode: always
+  h2:
+    console:
+      enabled: true
+  jackson:
+    default-property-inclusion: non_empty
+
+server:
+  port: 8082
+  servlet:
+    context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+
+springdoc:
+  packagesToScan: com.tcs.training
+
+logging:
+  level:
+    .: INFO
+
+
+spring.cloud.function.definition: paymentProcessor
+spring.cloud.stream:
+  bindings:
+    paymentProcessor-in-0.destination: ${spring.application.name}.paymentProcessor
+    paymentProcessor-out-0.destination: notification-service.notificationProcessor
+  kafka.streams:
+    bindings:
+      paymentProcessor-in-0.consumer.configuration.application.id: ${spring.application.name}-paymentProcessor
+    binder:
+      brokers: localhost:9092 # just to use it in the service app, Its already 'localhost:9092' by default
+      auto-add-partitions: true
+      min-partition-count: 1
+      state-store-retry:
+        max-attempts: 3
+        backoff-period: 500
+      configuration:
+        application.id: ${spring.application.name}
+        application.server: localhost:${server.port} # for InteractiveQueryService to describe itself
+        state.dir: state-${spring.application.name}-${server.port} # to give a unique dir name in case you run multiple of this app on the same machine
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$UUIDSerde
+        default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        commit.interval.ms: 1000
+        auto.offset.reset: latest
