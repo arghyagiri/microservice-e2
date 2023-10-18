@@ -60,17 +60,14 @@ For building and running the application you need:
 There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method
 in the below classes from your IDE.
 
-`com.tcs.training.user.InventoryApplication`
-[link](./inventory-service/src/main/java/com/tcs/training/inventory/InventoryApplication.java)
+`com.tcs.training.transaction.TransactionApplication`
+[link](./transaction-service/src/main/java/com/tcs/training/transaction/TransactionApplication.java)
 
 `com.tcs.training.notification.NotificationApplication`
 [link](./notification-service/src/main/java/com/tcs/training/notification/NotificationApplication.java)
 
 `com.tcs.training.order.AccountApplication`
-[link](./order-service/src/main/java/com/tcs/training/order/OrderApplication.java)
-
-`com.tcs.training.payment.PaymentApplication`
-[link](./payment-service/src/main/java/com/tcs/training/payment/PaymentApplication.java)
+[link](./account-management-service/src/main/java/com/tcs/training/account/AccountApplication.java)
 
 
 Alternatively you can use
@@ -103,18 +100,28 @@ Postman API test scripts can be found below.
 
 ## Scenario 2: Debit transaction is initiated of amount 23.00
 ![img_6.png](img_6.png)
+Kafka Topic `account-management-service.debitAccount` received message :
+![img.png](img.png)
 
 ## Scenario 3: User account balance is 84.00 as expected
 ![img_7.png](img_7.png)
+Kafka Topic `account-management-service.transactionSuccess` received message :
+![img_2.png](img_2.png)
 
 ## Scenario 4: Another Debit transaction is initiated of amount 139.00
 ![img_9.png](img_9.png)
+Kafka Topic `account-management-service.debitAccount` received message :
+![img_3.png](img_3.png)
 
 ## Scenario 5: Eventually the account balance went negative(-55.00) which is not right so the TransactionFailed event is called
 ![img_8.png](img_8.png)
+Kafka Topic `account-management-service.transactionFailed` received message :
+![img_4.png](img_4.png)
 
 ## Scenario 6: Compensatory transaction was initiated for eventual consistency and the debited amount is credited back
 ![img_10.png](img_10.png)
+Kafka Topic `account-management-service.revertCreditTransaction` received message :
+![img_11.png](img_11.png)
 
 ## Copyright
 
