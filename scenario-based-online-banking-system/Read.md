@@ -98,22 +98,22 @@ http://localhost:{port}/swagger-ui/index.html
 Postman API test scripts can be found below.
 [link](./postman-tests/Scenario%20Bases%20-%20Online%20Banking%20System.postman_collection.json)
 
->> Scenario 1: User is having account balance of 107.00
+##  Scenario 1: User is having account balance of 107.00
 ![img_5.png](img_5.png)
 
->> Scenario 2: Debit transaction is initiated of amount 23.00
+## Scenario 2: Debit transaction is initiated of amount 23.00
 ![img_6.png](img_6.png)
 
->> Scenario 3: User account balance is 84.00 as expected
+## Scenario 3: User account balance is 84.00 as expected
 ![img_7.png](img_7.png)
 
->> Scenario 4: Another Debit transaction is initiated of amount 139.00
+## Scenario 4: Another Debit transaction is initiated of amount 139.00
 ![img_9.png](img_9.png)
 
->> Scenario 5: Eventually the account balance went negative(-55.00) which is not right so the TransactionFailed event is called
+## Scenario 5: Eventually the account balance went negative(-55.00) which is not right so the TransactionFailed event is called
 ![img_8.png](img_8.png)
 
->> Scenario 6: Compensatory transaction was initiated for eventual consistency and the debited amount is credited back
+## Scenario 6: Compensatory transaction was initiated for eventual consistency and the debited amount is credited back
 ![img_10.png](img_10.png)
 
 ## Copyright
