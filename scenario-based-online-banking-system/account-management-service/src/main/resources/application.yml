@@ -43,19 +43,21 @@ logging:
           account:
             service: DEBUG
 
-spring.cloud.function.definition: debitAccount
+spring.cloud.function.definition: debitAccount;transactionFailed;transactionSuccess;revertCreditTransaction
 spring.cloud.stream:
   bindings:
     debitAccount-in-0.destination: ${spring.application.name}.debitAccount
     transactionFailed-in-0.destination: ${spring.application.name}.transactionFailed
-    #transactionFailed-out-0.destination: ${spring.application.name}.revertCreditTransaction
+    transactionFailed-out-0.destination: ${spring.application.name}.revertCreditTransaction
+    revertCreditTransaction-in-0.destination: ${spring.application.name}.revertCreditTransaction
     transactionSuccess-in-0.destination: ${spring.application.name}.transactionSuccess
 
   kafka.streams:
     bindings:
       revertCreditTransaction-in-0.consumer.configuration.application.id: ${spring.application.name}-revertCreditTransaction
+      transactionFailed-in-0.consumer.configuration.application.id: ${spring.application.name}-transactionFailed
+      debitAccount-in-0.consumer.configuration.application.id: ${spring.application.name}-debitAccount
       transactionSuccess-in-0.consumer.configuration.application.id: ${spring.application.name}-transactionSuccess
-      #inventoryProcessor-in-0.consumer.configuration.application.id: inventory-service-inventoryProcessor
     binder:
       brokers: localhost:9092 # just to use it in the service app, Its already 'localhost:9092' by default
       auto-add-partitions: true
