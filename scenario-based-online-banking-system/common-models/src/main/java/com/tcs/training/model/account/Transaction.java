@@ -21,7 +21,9 @@ public class Transaction implements Serializable {
 
 	@Valid
 	@NotNull
-	private Long accountNumber;
+	private Long fromAccountNumber;
+
+	private Long toAccountNumber;
 
 	@Valid
 	@NotNull

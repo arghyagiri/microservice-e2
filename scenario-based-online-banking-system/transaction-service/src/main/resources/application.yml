@@ -38,12 +38,11 @@ logging:
   level:
     .: INFO
 
-spring.cloud.function.definition: completeTransaction;initiateTransaction
+spring.cloud.function.definition: completeTransaction
 spring.cloud.stream:
   bindings:
     completeTransaction-in-0.destination: ${spring.application.name}.completeTransaction
     initiateTransaction-in-0.destination: ${spring.application.name}.initiateTransaction
-    initiateTransaction-out-0.destination: account-management-service.debitAccount
 
   kafka.streams:
     bindings:

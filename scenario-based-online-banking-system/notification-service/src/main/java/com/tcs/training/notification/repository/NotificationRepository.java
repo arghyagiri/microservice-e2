@@ -7,5 +7,6 @@ import java.util.UUID;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
-    Notification findByReferenceId(UUID referenceId);
+	Notification findByReferenceId(UUID referenceId);
+
 }

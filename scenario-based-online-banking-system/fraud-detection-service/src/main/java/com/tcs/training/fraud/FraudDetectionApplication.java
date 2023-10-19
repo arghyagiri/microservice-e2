@@ -1,13 +1,13 @@
-package com.tcs.training.notification;
+package com.tcs.training.fraud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NotificationApplication {
+public class FraudDetectionApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NotificationApplication.class, args);
+		SpringApplication.run(FraudDetectionApplication.class, args);
 	}
 
 }

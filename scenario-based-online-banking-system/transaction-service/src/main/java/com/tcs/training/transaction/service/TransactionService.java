@@ -1,7 +1,10 @@
 package com.tcs.training.transaction.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tcs.training.model.account.Transaction;
 import com.tcs.training.model.account.TransactionStatus;
+import com.tcs.training.transaction.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -10,12 +13,14 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.UUIDSerializer;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.Predicate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiFunction;
@@ -28,6 +33,8 @@ public class TransactionService {
 
 	private final Serde<Transaction> transactionSerde;
 
+	private final TransactionRepository transactionRepository;
+
 	@Value("${spring.cloud.stream.bindings.initiateTransaction-in-0.destination}")
 	private String transactionInitiatedTopic;
 
@@ -37,10 +44,23 @@ public class TransactionService {
 	@Value("${spring.cloud.stream.kafka.streams.binder.brokers}")
 	private String bootstrapServer;
 
+	Predicate<UUID, Transaction> debit = (k, v) -> v.getTransactionId() != null;
+
 	public Function<Transaction, Transaction> raiseTransactionInitiatedEvent() {
 		return txn -> {
 			txn.setTransactionStatus(TransactionStatus.INITIATED);
+			ObjectMapper objectMapper = new ObjectMapper();
 			// raise transaction initiated event
+			try {
+				transactionRepository.save(com.tcs.training.transaction.entity.Transaction.builder()
+					.transactionId(txn.getTransactionId())
+					.transactionDate(LocalDate.now())
+					.details(objectMapper.writeValueAsString(txn))
+					.build());
+			}
+			catch (JsonProcessingException e) {
+				throw new RuntimeException(e);
+			}
 			new KafkaTemplate(serializerStringDefaultKafkaProducerFactoryBiFunction.apply(transactionSerde.serializer(),
 					bootstrapServer), true) {
 				{
@@ -66,13 +86,6 @@ public class TransactionService {
 			};
 			return txn;
 		};
-	}
-
-	@Bean
-	public Function<KStream<UUID, Transaction>, KStream<UUID, Transaction>> initiateTransaction() {
-		return input -> input.peek((uuid, order) -> log.info("uuid : {}, transaction initiated : {}", uuid, order))
-			.peek((key, value) -> value.setTransactionStatus(TransactionStatus.INITIATED))
-			.map(KeyValue::new);
 	}
 
 	@Bean

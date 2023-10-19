@@ -10,7 +10,7 @@
 ### Transaction Service: 
 * Handles transactions between accounts, including logging and notifying relevant services of transaction events.
 ### Notification Service: 
-* Sends notifications (SMS, Email) to customers regarding account activities.
+* Sends FraudDetections (SMS, Email) to customers regarding account activities.
 ### Audit Service: 
 * Keeps track and logs every action and transaction within the system for auditing purposes.
 ### Fraud Detection Service: 
@@ -63,8 +63,8 @@ in the below classes from your IDE.
 `com.tcs.training.transaction.TransactionApplication`
 [link](./transaction-service/src/main/java/com/tcs/training/transaction/TransactionApplication.java)
 
-`com.tcs.training.notification.NotificationApplication`
-[link](./notification-service/src/main/java/com/tcs/training/notification/NotificationApplication.java)
+`com.tcs.training.FraudDetection.FraudDetectionApplication`
+[link](./FraudDetection-service/src/main/java/com/tcs/training/FraudDetection/NotificationApplication.java)
 
 `com.tcs.training.order.AccountApplication`
 [link](./account-management-service/src/main/java/com/tcs/training/account/AccountApplication.java)
@@ -122,6 +122,26 @@ Kafka Topic `account-management-service.transactionFailed` received message :
 ![img_10.png](img_10.png)
 Kafka Topic `account-management-service.revertCreditTransaction` received message :
 ![img_11.png](img_11.png)
+
+
+## Chain of Events in case of Fraud - Fraud Detection Saga
+
+### 1. Transaction Initiated
+![img_14.png](img_14.png)
+### 2. Transaction Event Emitted
+![img_15.png](img_15.png)
+### 3. Fraud Detection service listens to Transaction Event
+![img_16.png](img_16.png)
+### 4. Fraud Detection service flags the transaction as suspicious as the volume is huge as per the rule
+### 5. Notification service listens to Fraud Detection Event
+![img_12.png](img_12.png)
+### 6. Notification service send email to customer to alert
+![img_13.png](img_13.png)
+
+## Ref:
+
+https://docs.spring.io/spring-cloud-stream-binder-kafka/docs/current/reference/html/spring-cloud-stream-binder-kafka.html#_multi_binders_with_kafka_streams_based_binders_and_regular_kafka_binder
+https://docs.spring.io/spring-cloud-stream/reference/kafka/kafka-streams-binder/programming-model.html
 
 ## Copyright
 

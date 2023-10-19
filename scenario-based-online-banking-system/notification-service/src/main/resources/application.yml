@@ -25,6 +25,18 @@ spring:
         enabled: false
     openfeign:
       lazy-attributes-resolution: true
+  mail:
+    host: smtp.freesmtpservers.com
+    port: 25
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls.enable: true
+          from: noreply@mybank.com
+
 
 server:
   port: 8084

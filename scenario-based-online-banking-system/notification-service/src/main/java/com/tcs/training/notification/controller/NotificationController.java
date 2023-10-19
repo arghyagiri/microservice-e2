@@ -1,14 +1,14 @@
 package com.tcs.training.notification.controller;
 
 import com.tcs.training.notification.entity.Notification;
-import com.tcs.training.notification.model.ProductDTO;
 import com.tcs.training.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -28,26 +28,11 @@ public class NotificationController {
 		return notificationService.getById(id);
 	}
 
-	@GetMapping(value = "/get-by-ids")
-	public List<Notification> getByIds(@RequestParam("id") Set<Long> ids) {
-		return notificationService.getByIds(ids);
-	}
-
-	@PostMapping()
-	public Notification add(@RequestBody ProductDTO author) {
-		Notification notificationEntity = new Notification();
-		BeanUtils.copyProperties(author, notificationEntity);
-		return notificationService.add(notificationEntity);
-	}
-
-	@PutMapping()
-	public Notification put(@RequestBody Notification notification) {
-		return notificationService.put(notification);
-	}
-
-	@DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable("id") Long id) {
-		notificationService.delete(id);
+	// @GetMapping("/test-email")
+	public String sendTestEmail() {
+		notificationService.sendSimpleEmail("notifycustomerfraud@example.com", "Test Email",
+				"Hello, This is test email generated.");
+		return "success";
 	}
 
 }

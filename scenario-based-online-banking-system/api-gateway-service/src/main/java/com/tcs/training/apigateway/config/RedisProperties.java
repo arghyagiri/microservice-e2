@@ -5,19 +5,23 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RedisProperties {
-    private final int redisPort;
-    private final String redisHost;
 
-    public RedisProperties(@Value("${spring.redis.port}") final int redisPort, @Value("${spring.redis.host}") final String redisHost) {
-        this.redisPort = redisPort;
-        this.redisHost = redisHost;
-    }
+	private final int redisPort;
 
-    public int getRedisPort() {
-        return redisPort;
-    }
+	private final String redisHost;
 
-    public String getRedisHost() {
-        return redisHost;
-    }
+	public RedisProperties(@Value("${spring.redis.port}") final int redisPort,
+			@Value("${spring.redis.host}") final String redisHost) {
+		this.redisPort = redisPort;
+		this.redisHost = redisHost;
+	}
+
+	public int getRedisPort() {
+		return redisPort;
+	}
+
+	public String getRedisHost() {
+		return redisHost;
+	}
+
 }

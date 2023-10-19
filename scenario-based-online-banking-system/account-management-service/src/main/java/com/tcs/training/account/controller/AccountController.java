@@ -4,7 +4,6 @@ import com.tcs.training.account.repository.AccountRepository;
 import com.tcs.training.account.service.AccountService;
 import com.tcs.training.model.account.Account;
 import com.tcs.training.model.account.Transaction;
-import com.tcs.training.model.account.TransactionStatus;
 import com.tcs.training.model.account.TransactionType;
 import com.tcs.training.model.order.NoDataFoundException;
 import jakarta.validation.Valid;
@@ -49,7 +48,7 @@ public class AccountController {
 	@PostMapping("credit")
 	public Transaction creditAccount(@RequestBody @Valid Transaction transaction) {
 		com.tcs.training.account.entity.Account account = accountRepository
-			.findByAccountNumber(transaction.getAccountNumber());
+			.findByAccountNumber(transaction.getFromAccountNumber());
 		transaction.setTransactionId(UUID.randomUUID());
 		transaction.setTransactionType(TransactionType.CREDIT);
 		if (account != null) {
@@ -58,13 +57,13 @@ public class AccountController {
 			return transaction;
 		}
 
-		throw new NoDataFoundException("Account number :: " + transaction.getAccountNumber() + " does not exist");
+		throw new NoDataFoundException("Account number :: " + transaction.getFromAccountNumber() + " does not exist");
 	}
 
 	@PostMapping("debit")
 	public Transaction debitAccount(@RequestBody @Valid Transaction transaction) {
 		com.tcs.training.account.entity.Account account = accountRepository
-			.findByAccountNumber(transaction.getAccountNumber());
+			.findByAccountNumber(transaction.getFromAccountNumber());
 		transaction.setTransactionId(UUID.randomUUID());
 		transaction.setTransactionType(TransactionType.DEBIT);
 		if (account != null) {
@@ -72,7 +71,7 @@ public class AccountController {
 			accountRepository.save(account);
 			return transaction;
 		}
-		throw new NoDataFoundException("Account number :: " + transaction.getAccountNumber() + " does not exist");
+		throw new NoDataFoundException("Account number :: " + transaction.getFromAccountNumber() + " does not exist");
 
 	}
 

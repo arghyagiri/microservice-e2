@@ -9,13 +9,13 @@ import reactor.core.publisher.Mono;
 @SpringBootApplication
 public class APIGatewayService {
 
-    public static void main(String[] args) {
-        SpringApplication.run(APIGatewayService.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(APIGatewayService.class, args);
+	}
 
-    @Bean
-    public KeyResolver userKeyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
-    }
+	@Bean
+	public KeyResolver userKeyResolver() {
+		return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
+	}
 
 }

@@ -1,4 +1,4 @@
-package com.tcs.training.notification.controller;
+package com.tcs.training.fraud.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

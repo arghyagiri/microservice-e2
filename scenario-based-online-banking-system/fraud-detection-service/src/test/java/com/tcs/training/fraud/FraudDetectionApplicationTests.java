@@ -1,10 +1,10 @@
-package com.tcs.training.notification;
+package com.tcs.training.fraud;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NotificationApplicationTests {
+class FraudDetectionApplicationTests {
 
 	@Test
 	void contextLoads() {

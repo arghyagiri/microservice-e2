@@ -81,7 +81,7 @@ public class AccountService {
 			.peek((key, value) -> value.setTransactionStatus(TransactionStatus.REVERT_INITIATED))
 			.peek((k, v) -> {
 				com.tcs.training.account.entity.Account account = accountRepository
-					.findByAccountNumber(v.getAccountNumber());
+					.findByAccountNumber(v.getFromAccountNumber());
 				if (account != null) {
 					account.setAccountBalance(account.getAccountBalance().add(v.getAmount()));
 					try {
@@ -107,7 +107,7 @@ public class AccountService {
 			.peek((uuid, transaction) -> log.info("uuid : {}, debit transaction : {}", uuid, transaction))
 			.peek((k, v) -> {
 				com.tcs.training.account.entity.Account account = accountRepository
-					.findByAccountNumber(v.getAccountNumber());
+					.findByAccountNumber(v.getFromAccountNumber());
 				if (account != null) {
 					account.setAccountBalance(account.getAccountBalance().subtract(v.getAmount()));
 					account = accountRepository.save(account);
