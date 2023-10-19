@@ -1,7 +1,8 @@
 package com.tcs.training.audit.service;
 
-import com.tcs.training.model.order.Order;
-import com.tcs.training.model.order.OrderStatus;
+import com.tcs.training.audit.entity.Audit;
+import com.tcs.training.audit.repository.AuditRepository;
+import com.tcs.training.model.account.Transaction;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.KeyValue;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Service
@@ -17,11 +19,19 @@ import java.util.function.Function;
 @Slf4j
 public class AuditServiceBus {
 
+	private final AuditRepository auditRepository;
+
 	@Bean
-	public Function<KStream<UUID, Order>, KStream<UUID, Order>> paymentProcessor() {
-		return input -> input.peek((key, value) -> value.setOrderStatus(OrderStatus.PAYMENT_RECEIVED))
-			.peek((uuid, order) -> log.info("Payment processed : {}", order))
-			.map(KeyValue::new);
+	public Consumer<KStream<UUID, Transaction>> auditProcessor() {
+		return input -> input.peek((key, value) -> {
+			Audit auditLog = Audit.builder()
+				.transactionId(value.getTransactionId().toString())
+				.receiverAccountNumber(value.getToAccountNumber())
+				.senderAccountNumber(value.getFromAccountNumber())
+				.transactionAmount(value.getAmount())
+				.build();
+			auditRepository.save(auditLog);
+		}).peek((uuid, txn) -> log.info("Auditing Log processed : {}", txn)).map(KeyValue::new);
 	}
 
 }

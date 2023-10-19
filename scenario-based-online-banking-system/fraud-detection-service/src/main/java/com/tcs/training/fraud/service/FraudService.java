@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Service
@@ -31,8 +32,8 @@ import java.util.function.Function;
 @Slf4j
 public class FraudService {
 
-	@Value("${spring.cloud.stream.bindings.alertFraud-in-0.destination}")
-	private String alertFraudTopic;
+	@Value("${spring.cloud.stream.bindings.notification-out-0.destination}")
+	private String notificationTopic;
 
 	@Value("${spring.cloud.stream.kafka.streams.binder.brokers}")
 	private String bootstrapServer;
@@ -42,16 +43,17 @@ public class FraudService {
 	private final FraudDetectionRepository fraudDetectionRepository;
 
 	@Bean
-	public Function<KStream<UUID, Transaction>, KStream<UUID, Transaction>> analyzeFraud() {
+	public Consumer<KStream<UUID, Transaction>> analyzeFraud() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return txn -> txn.peek((k, v) -> {
 			Character suspiciousFlag = 'N';
 			if (isSuspiciousTransaction(v)) {
 				suspiciousFlag = 'Y';
+				v.setTransactionStatus(TransactionStatus.SUSPICIOUS);
 				new KafkaTemplate(serializerStringDefaultKafkaProducerFactoryBiFunction
 					.apply(transactionSerde.serializer(), bootstrapServer), true) {
 					{
-						setDefaultTopic(alertFraudTopic);
+						setDefaultTopic(notificationTopic);
 						sendDefault(v.getTransactionId(), v);
 					}
 				};
@@ -68,13 +70,6 @@ public class FraudService {
 				throw new RuntimeException(e);
 			}
 		}).peek((uuid, v) -> log.info("Fraud analysis done : {}", v)).map(KeyValue::new);
-	}
-
-	@Bean
-	public Function<KStream<UUID, Transaction>, KStream<UUID, Transaction>> alertFraud() {
-		return input -> input.peek((key, value) -> value.setTransactionStatus(TransactionStatus.SUSPICIOUS))
-			.peek((k, v) -> log.info("Suspicious transaction defected & going to create alerts : {}", v))
-			.map(KeyValue::new);
 	}
 
 	public boolean isSuspiciousTransaction(Transaction transaction) {

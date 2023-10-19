@@ -40,14 +40,13 @@ logging:
     .: INFO
 
 
-spring.cloud.function.definition: paymentProcessor
+spring.cloud.function.definition: auditProcessor
 spring.cloud.stream:
   bindings:
-    paymentProcessor-in-0.destination: ${spring.application.name}.paymentProcessor
-    paymentProcessor-out-0.destination: notification-service.notificationProcessor
+    auditProcessor-in-0.destination: transaction-service.initiateTransaction
   kafka.streams:
     bindings:
-      paymentProcessor-in-0.consumer.configuration.application.id: ${spring.application.name}-paymentProcessor
+      auditProcessor-in-0.consumer.configuration.application.id: ${spring.application.name}-auditProcessor
     binder:
       brokers: localhost:9092 # just to use it in the service app, Its already 'localhost:9092' by default
       auto-add-partitions: true

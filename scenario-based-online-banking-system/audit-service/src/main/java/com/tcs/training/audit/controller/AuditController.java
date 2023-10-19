@@ -29,7 +29,7 @@ public class AuditController {
 	public com.tcs.training.model.audit.Audit add(@RequestBody com.tcs.training.model.audit.Audit audit) {
 		Audit auditEntity = new Audit();
 		BeanUtils.copyProperties(audit, auditEntity);
-		auditEntity =  auditService.add(auditEntity);
+		auditEntity = auditService.add(auditEntity);
 		BeanUtils.copyProperties(auditEntity, audit);
 		return audit;
 	}

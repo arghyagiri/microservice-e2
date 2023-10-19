@@ -101,7 +101,7 @@ public class AccountService {
 	}
 
 	@Bean
-	public Function<KStream<UUID, Transaction>, KStream<UUID, Transaction>> debitAccount() {
+	public Consumer<KStream<UUID, Transaction>> debitAccount() {
 
 		return input -> input
 			.peek((uuid, transaction) -> log.info("uuid : {}, debit transaction : {}", uuid, transaction))
@@ -142,11 +142,6 @@ public class AccountService {
 			.peek((uuid, transaction) -> log.info("uuid : {}, transaction success : {}", uuid, transaction))
 			.peek((key, value) -> value.setTransactionStatus(TransactionStatus.SUCCESS))
 			.map(KeyValue::new);
-	}
-
-	public boolean getSuccessOrFailure() {
-		Random random = new Random();
-		return random.nextBoolean();
 	}
 
 	BiFunction<Serializer<Transaction>, String, DefaultKafkaProducerFactory<UUID, Transaction>> orderJsonSerdeFactoryFunction = (

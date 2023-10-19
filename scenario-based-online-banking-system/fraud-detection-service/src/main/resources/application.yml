@@ -45,20 +45,15 @@ logging:
   level:
     .: INFO
 
-spring.cloud.function.definition: analyzeFraud;alertFraud
+spring.cloud.function.definition: analyzeFraud
 spring.cloud.stream:
   bindings:
-    analyzeFraud-in-0:
-      destination: transaction-service.initiateTransaction
-      group: transaction-service.initiateTransaction
-    analyzeFraud-out-0.destination: ${spring.application.name}.alertFraud
-    alertFraud-in-0.destination: ${spring.application.name}.alertFraud
-    alertFraud-out-0.destination: notification-service.notificationProcessor
+    analyzeFraud-in-0.destination: transaction-service.initiateTransaction
+    notification-out-0.destination: notification-service.notificationProcessor
 
   kafka.streams:
     bindings:
       analyzeFraud-in-0.consumer.configuration.application.id: ${spring.application.name}-analyzeFraud
-      alertFraud-in-0.consumer.configuration.application.id: ${spring.application.name}-alertFraud
     binder:
       brokers: localhost:9092 # just to use it in the service app, Its already 'localhost:9092' by default
       auto-add-partitions: true

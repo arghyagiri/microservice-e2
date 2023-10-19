@@ -349,7 +349,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"fromAccountNumber\": {{accountNumber}},\r\n  \"toAccountNumber\": {{$randomBankAccount}},\r\n  \"amount\": 100000\r\n}",
+							"raw": "{\r\n  \"fromAccountNumber\": {{accountNumber}},\r\n  \"toAccountNumber\": {{$randomBankAccount}},\r\n  \"amount\": 100001\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
