@@ -46,7 +46,7 @@ logging:
 spring.cloud.function.definition: debitAccount;transactionFailed;transactionSuccess;revertCreditTransaction
 spring.cloud.stream:
   bindings:
-    debitAccount-in-0.destination: ${spring.application.name}.debitAccount
+    debitAccount-in-0.destination: transaction-service.initiateTransaction
     transactionFailed-in-0.destination: ${spring.application.name}.transactionFailed
     transactionFailed-out-0.destination: ${spring.application.name}.revertCreditTransaction
     revertCreditTransaction-in-0.destination: ${spring.application.name}.revertCreditTransaction
