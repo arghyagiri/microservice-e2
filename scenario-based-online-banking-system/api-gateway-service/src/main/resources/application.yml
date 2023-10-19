@@ -53,6 +53,10 @@ spring:
           uri: https://data.fixer.io/api/latest
           predicates:
             - Path=/forex-rates/**
+        - id: audit-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/audits/**
 server:
   port: 8090
 

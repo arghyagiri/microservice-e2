@@ -63,3 +63,9 @@ spring.cloud.stream:
         default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
         commit.interval.ms: 1000
         auto.offset.reset: latest
+
+
+proxy:
+  service:
+    audit:
+      url: http://localhost:8090/audits/log-activity

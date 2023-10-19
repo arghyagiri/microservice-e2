@@ -6,11 +6,8 @@ import com.tcs.training.fraud.entity.FraudDetection;
 import com.tcs.training.fraud.repository.FraudDetectionRepository;
 import com.tcs.training.model.account.Transaction;
 import com.tcs.training.model.account.TransactionStatus;
-import com.tcs.training.model.order.Order;
-import com.tcs.training.model.order.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
@@ -24,11 +21,9 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Service

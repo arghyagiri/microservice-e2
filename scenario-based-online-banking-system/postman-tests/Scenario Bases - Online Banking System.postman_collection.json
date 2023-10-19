@@ -141,7 +141,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"accountNumber\": {{accountNumber}},\r\n  \"amount\": {{$randomInt}}\r\n}",
+							"raw": "{\r\n  \"fromAccountNumber\": {{accountNumber}},\r\n  \"amount\": {{$randomInt}}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -182,7 +182,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"accountNumber\": {{accountNumber}},\r\n  \"amount\": {{$randomInt}}\r\n}",
+							"raw": "{\r\n  \"fromAccountNumber\": {{accountNumber}},\r\n  \"amount\": {{$randomInt}}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -253,7 +253,13 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									""
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.test(\"Check if product created.\", function () {\r",
+									"        pm.collectionVariables.set(\"accountNumber\",jsonData.accountNumber);\r",
+									"        pm.expect(jsonData.accountNumber).not.eql(undefined);\r",
+									"    });"
 								],
 								"type": "text/javascript"
 							}
@@ -302,7 +308,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"accountNumber\": {{accountNumber}},\r\n  \"amount\": {{$randomInt}}\r\n}",
+							"raw": "{\r\n  \"fromAccountNumber\": {{accountNumber}},  \r\n  \"toAccountNumber\": {{$randomBankAccount}},\r\n  \"amount\": {{$randomInt}}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -321,6 +327,109 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Initiate High-Volume Transaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fromAccountNumber\": {{accountNumber}},\r\n  \"toAccountNumber\": {{$randomBankAccount}},\r\n  \"amount\": 100000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gatwayUrl}}/transactions/initiateTransaction",
+							"host": [
+								"{{gatwayUrl}}"
+							],
+							"path": [
+								"transactions",
+								"initiateTransaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction bindings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/actuator/bindings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"actuator",
+								"bindings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Analyze Fraud",
+			"item": [
+				{
+					"name": "Analysis report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gatwayUrl}}/frauds",
+							"host": [
+								"{{gatwayUrl}}"
+							],
+							"path": [
+								"frauds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fraud service bindings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/actuator/bindings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"actuator",
+								"bindings"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -330,15 +439,32 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8081/actuator/kafkastreamstopology",
+					"raw": "http://localhost:8085/actuator/kafkastreamstopology",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8081",
+					"port": "8085",
 					"path": [
 						"actuator",
 						"kafkastreamstopology"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Audit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gatwayUrl}}/audits",
+					"host": [
+						"{{gatwayUrl}}"
+					],
+					"path": [
+						"audits"
 					]
 				}
 			},
@@ -373,7 +499,7 @@
 		},
 		{
 			"key": "accountNumber",
-			"value": ""
+			"value": "10000000"
 		}
 	]
 }

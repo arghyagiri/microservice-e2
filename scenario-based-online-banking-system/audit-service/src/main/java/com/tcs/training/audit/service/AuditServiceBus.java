@@ -15,13 +15,12 @@ import java.util.function.Function;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class PaymentServiceBus {
+public class AuditServiceBus {
 
 	@Bean
 	public Function<KStream<UUID, Order>, KStream<UUID, Order>> paymentProcessor() {
-		return input -> input
-			.peek((key, value) -> value.setOrderStatus(OrderStatus.PAYMENT_RECEIVED))
-				.peek((uuid, order) -> log.info("Payment processed : {}", order))
+		return input -> input.peek((key, value) -> value.setOrderStatus(OrderStatus.PAYMENT_RECEIVED))
+			.peek((uuid, order) -> log.info("Payment processed : {}", order))
 			.map(KeyValue::new);
 	}
 
